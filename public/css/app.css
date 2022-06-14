@@ -526,14 +526,14 @@ samp {
  *    CSS Remedy, with `svg` added as well.
  *
  *    https://github.com/mozdevs/cssremedy/issues/14
- * 
+ *
  * 2. Add `vertical-align: middle` to align replaced elements more
  *    sensibly by default when overriding `display` by adding a
  *    utility like `inline`.
  *
  *    This can trigger a poorly considered linting error in some
  *    tools but is included by design.
- * 
+ *
  *    https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210
  */
 
@@ -15346,6 +15346,45 @@ video {
 .bg-current {
   background-color: currentColor;
 }
+
+.bg-darkDefault {
+    background-color: #E5E5E5;}
+.bg-primary {
+    background-color: #196AFF;}
+.bg-primarySoft{
+    background-color: #6ba4ff;}
+.bg-secondary{
+    background-color: #00A82D;}
+.bg-secondarySoft{
+    background-color: #49A875;}
+.bg-third{
+    background-color: #434F45;}
+.bg-thirdSoft{
+    background-color: #6F8272;}
+.bg-dark{
+    background-color: #1B1C1C;}
+.bg-darkdSoft{
+    background-color: #426969;}
+.bg-light{
+    background-color: #ffffff;}
+.bg-lightSoft{
+    background-color: #EBEEF0;}
+.bg-danger{
+    background-color: #d61c0f;}
+.bg-dangerSoft{
+    background-color: #ff5d52;}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .bg-black {
   --tw-bg-opacity: 1;
