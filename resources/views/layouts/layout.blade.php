@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="css/all.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Oxygen:wght@300;400;700&family=Roboto:wght@300;400&display=swap">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>EAS - @yield('title')</title>
+        <link rel="stylesheet" href="css/select2.min.css">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>EAS - {{$navBarTitle}}</title>
         @yield('css')
     </head>
     <body class="{{$bgBody}}" @if ($navBarTitle == "Log In") onload="mostrarReloj()" @endif>
@@ -29,8 +31,10 @@
         <main class="mainContent">
             @yield('content')
         </main>
+        <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/all.min.js') }}"></script>
+
         @if ($navBarTitle == "Log In") <script src="{{ asset('js/reloj.js') }}"></script> @endif
             @yield('scripts')
     </body>

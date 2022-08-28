@@ -1,7 +1,6 @@
 @extends('layouts.layout')
-@section('title', 'Login')
 @php
-    $navBarTitle  =   "Log In";
+	$navBarTitle	=	"Log In";
 	$bgBody			=	"bg-light";
 @endphp
 @section('content')
@@ -31,15 +30,17 @@
 					<div class="col-span-1">
 						<div class="inline-block w-full">
 							<div>
-								<button class="btnSign bg-secondary w-full md:h-12 sm:h-10 xs:h-8 h-12 rounded-md font-bold text-lg xs:text-base text-light hover:bg-secondarySoft hover:text-lightSoft tracking-wide">Log In</button>
+								<a href="{{ route('administration.index') }}">
+									<button class="btnSign bg-secondary w-full md:h-12 sm:h-10 xs:h-8 h-12 rounded-md font-bold text-lg xs:text-base text-light hover:bg-secondarySoft hover:text-lightSoft tracking-wide">Log In <i class="ml-4 text-xl fa-solid fa-person-walking-arrow-right"></i><i class="text-xl fa-solid fa-door-open"></i></button>
+								</a>
 							</div>
 						</div>
 					</div>
 					<div class="col-span-1">
 						<div class="inline-block w-full">
-							<div>
-								<button class="btnRegister font-bold w-full md:h-12 sm:h-10 xs:h-8 h-12 text-darkSoft text-lg xs:text-base hover:text-thirdSoft tracking-wide">Sign Up</button>
-							</div>
+							<a href="{{ route('auth.register') }}">
+								<button type="button" class="btnRegister font-bold w-full md:h-12 sm:h-10 xs:h-8 h-12 text-darkSoft text-lg xs:text-base hover:text-thirdSoft tracking-wide">Sign Up <i class="ml-4 text-xl fa-solid fa-user-plus"></i></button>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -59,18 +60,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="flex justify-center md:p-12 sm:p-2 p-0">
-				<img class="md:w-full sm:w-2/5 xs:w-2/5 w-2/5 rounded-md shadow-xl shadow-cyan-500/50" src="{{URL::asset('/img/nordwood-themes-unsplash.jpg')}}" alt="Enterprise image">
+			<div class="flex justify-center md:p-12 p-0">
+				<img class="md:w-full sm:w-2/5 w-7/12 rounded-md shadow-xl shadow-cyan-500/50" src="{{URL::asset('/img/nordwood-themes-unsplash.jpg')}}" alt="Enterprise image">
 			</div>
 		</div>
 	</div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function()
-        {
-        });
-    </script>
+	<script src="{{ asset('js/app.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+		});
+	</script>
 @endsection
 
