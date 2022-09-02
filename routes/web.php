@@ -33,3 +33,13 @@ Route::prefix('administration/')->name('administration.')->group(function()
     Route::get('schedules','App\Http\Controllers\EmployeeAdministrationController@schedules')->name('schedules');
 });
 Route::resource('administration','App\Http\Controllers\EmployeeAdministrationController');
+
+// Configuration Employees Routes
+
+Route::resource('employees','App\Http\Controllers\EmployeesConfigurationController');
+
+// Configuration Users Routes
+
+Route::resource('users','App\Http\Controllers\UsersConfigurationController');
+
+
