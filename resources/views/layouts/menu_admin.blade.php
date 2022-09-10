@@ -4,12 +4,12 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-		{{-- <link rel="stylesheet" href="css/all.min.css"> --}}
+		<link rel="stylesheet" href="{{ asset('css/all.min.css')}}">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Oxygen:wght@300;400;700&family=Roboto:wght@300;400&display=swap">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-		{{-- <link rel="stylesheet" href="css/select2.min.css"> --}}
-		<title>EAS - {{$navBarTitle}}</title>
+		<title>EMS - {{$navBarTitle}}</title>
 		@yield('css')
 	</head>
 	<body class="@if (isset($bgBody)) {{$bgBody}} @endif">
@@ -17,7 +17,7 @@
 			<div class="bg-primary grid md:grid-cols-12 grid-cols-2 w-full items-center fixed z-20">
 				<div class="text-light text-lg text-center sm:ml-4 ml-12 font-semibold md:col-span-3 col-span-1">Administrator User{{-- {{$navBarTitle}} --}}</div>
 				<div class="col-span-1 mr-8 grid justify-items-end p-2 md:hidden">
-                    <button class="font-bold md:hidden text-2xl text-light menuButton"><i class="fa-solid fa-bars"></i></button>
+                    <button class="font-bold md:hidden text-4xl text-light menuButton"><i class="fa-solid fa-bars"></i></button>
 				</div>
 				<div class="text-light md:col-span-9 md:grid md:grid-cols-5 mr-4 md:text-md xs:text-sm hidden">
 					<div class="col-span-1">
@@ -65,29 +65,30 @@
 					</div>
 				</div>
 			</div>
-
-            {{-- todo menu mobil no se oculta cuando se hace grande manualmente --}}
-
-            <div class="w-full text-light text-right bg-third bg-opacity-90 mt-12 fixed right-0 hidden z-10" id="menu">
-                <a class="block border-b-2 border-light border-solid border-opacity-5 pt-6 pb-4" href="{{route('administration.index')}}"><button class="px-12 ">Home</button></a>
-                <a class="block border-b-2 border-light border-solid border-opacity-5 py-4" href="{{route('administration.asistance')}}"><button class="px-12">Assistance</button></a>
-                <a class="block border-b-2 border-light border-solid border-opacity-5 py-4" href="{{route('administration.schedules')}}"><button class="px-12">Schedules</button></a>
-                <a class="block border-b-2 border-light border-solid border-opacity-5 py-4" href="{{route('employees.index')}}"><button class="px-12">Employees</button></a>
-                <a class="block border-b-2 border-light border-solid border-opacity-5 py-4" href="{{route('users.index')}}"><button class="px-12">Users</button></a>
-                <a class="block border-b-2 border-light border-solid border-opacity-5 py-4" href="{{route('auth.login')}}"><button class="px-12">log Out</button></a>
-                <a class="block border-b-2 border-light border-solid border-opacity-5 py-4"><button class="px-12">About</button></a>
-                <a class="block border-b-2 border-light border-solid border-opacity-5 py-4"><button class="px-12">Help</button></a>
+            <div class="w-full text-light text-center bg-darkSoft mt-10 fixed right-0 z-10 hidden pt-2 divide-y-2 divide-light divide-opacity-10" id="menu">
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Home") href="{{route('administration.index')}}" @endif><button class="w-full font-semibold">Home</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Asistances") href="{{route('administration.asistance')}}" @endif"><button class="w-full font-semibold">Assistance</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Schedules") href="{{route('administration.schedules')}}" @endif><button class="w-full font-semibold">Schedules</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Employees") href="{{route('employees.index')}}" @endif><button class="w-full font-semibold">Employees</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Users") href="{{route('users.index')}}" @endif><button class="w-full font-semibold">Users</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" href="{{route('auth.login')}}"><button class="w-full font-semibold">log Out</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" href="#"><button class="w-full font-semibold">About</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" href="#"><button class="w-full font-semibold">Help</button></a>
             </div>
 		</header>
 		<main class="mainContent pt-20 pb-8 md:px-20 px-8">
             <div class="text-4xl text-third font-semibold tracking-wide text-center">
-                <label>Employee Admin System</label>
+                <label>Employee Management System</label>
             </div>
 			@yield('content')
 		</main>
 		<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-		<script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
 		<script src="{{ asset('js/all.min.js') }}"></script>
+		{{-- <script src="{{ asset('js/select2.full.js') }}"></script> --}}
+		<script src="{{ asset('js/select2.full.min.js') }}"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function()
 			{
@@ -106,13 +107,21 @@
                     flagMenuButton  =   $('#menu').hasClass('hidden');
                     if (flagMenuButton == true)
                     {
-                        $('#menu').slideDown().removeClass('hidden');
+                        $('#menu').slideDown().removeClass('hidden').addClass('block').slideDown();
                     }
                     else
                     {
-                        $('#menu').slideUp().addClass('hidden');
+                        $('#menu').slideUp().removeClass('block').addClass('hidden');
                     }
                 })
+				window.addEventListener("resize", function()
+				{
+					flagMenuButton  =   $('#menu').hasClass('block');
+					if (flagMenuButton == true)
+					{
+						$('#menu').slideUp().removeClass('block').addClass('hidden');
+					}
+				});
 			});
 		</script>
 		{{-- @if ($navBarTitle == "Log In") <script src="{{ asset('js/reloj.js') }}"></script> @endif --}}

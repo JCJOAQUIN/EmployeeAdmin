@@ -35,7 +35,10 @@ Route::prefix('administration/')->name('administration.')->group(function()
 Route::resource('administration','App\Http\Controllers\EmployeeAdministrationController');
 
 // Configuration Employees Routes
-
+Route::prefix('employees/')->name('employees.')->group(function()
+{
+    Route::get('search','App\Http\Controllers\EmployeesConfigurationController@search')->name('search');
+});
 Route::resource('employees','App\Http\Controllers\EmployeesConfigurationController');
 
 // Configuration Users Routes

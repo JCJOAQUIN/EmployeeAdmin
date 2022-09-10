@@ -9,7 +9,7 @@
 	<div class="md:mx-24 sm:mx-10 mx-0.5" id="formRegisterUser">
 		{{-- {!! Form::open('method="POST') !!} --}}
 
-			<div class="mx-8 mt-4 text-lg text-dangerSoft font-semibold"><a href="{{route('auth.login')}}"><i class=" w-6 fa-solid fa-angles-left"></i> Back</a></div>
+			{{-- <div class="mx-8 mt-4 text-lg text-dangerSoft font-semibold"><a href="{{route('auth.login')}}"><i class=" w-6 fa-solid fa-angles-left"></i> Back</a></div>
 			<div class="flex justify-center w-full my-4">
 				<div class="w-full mx-8 h-16 sm:text-sm p-4 text-lg xs:text-xs text-darkDefault font-semibold align-center bg-secondarySoft grid items-center text-center rounded-md bg-opacity-60" id="alert-register">Please fill in all the fields requested below to complete your registration correctly.</div>
 			</div>
@@ -102,12 +102,12 @@
 			<div class="w-full flex justify-center my-8 space-x-4">
 				<button class="save w-24 h-10 bg-secondary rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-check"></i> Save</button>
 				<button class="w-24 h-10 bg-third rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-xmark"></i> Cancel</button>
-			</div>
+			</div> --}}
 		{{-- {!! Form::close() !!} --}}
 	</div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    {{-- <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('select2/dist/js/select2.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -120,7 +120,7 @@
                 maximumSelectionLength  : 1,
             })
         });
-    </script>
+    </script> --}}
 @endsection
 
 

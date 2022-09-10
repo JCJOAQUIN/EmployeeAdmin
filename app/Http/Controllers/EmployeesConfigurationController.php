@@ -23,7 +23,7 @@ class EmployeesConfigurationController extends Controller
      */
     public function create()
     {
-        //
+        return view('configuration/employees/create');
     }
 
     /**
@@ -80,5 +80,10 @@ class EmployeesConfigurationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search()
+    {
+        return view('configuration/employees/search');
     }
 }
