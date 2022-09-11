@@ -14,7 +14,7 @@
 	</head>
 	<body class="@if (isset($bgBody)) {{$bgBody}} @endif">
 		<header>
-			<div class="bg-primary grid md:grid-cols-12 grid-cols-2 w-full items-center fixed z-20">
+			<div class=" bg-primarySoft grid md:grid-cols-12 grid-cols-2 w-full items-center fixed z-20">
 				<div class="text-light text-lg text-center sm:ml-4 ml-12 font-semibold md:col-span-3 col-span-1">Administrator User{{-- {{$navBarTitle}} --}}</div>
 				<div class="col-span-1 mr-8 grid justify-items-end p-2 md:hidden">
                     <button class="font-bold md:hidden text-4xl text-light menuButton"><i class="fa-solid fa-bars"></i></button>
