@@ -3,10 +3,12 @@
 	$navBarTitle	=	"Employees";
 @endphp
 
-@section('css')
-
-@endsection
 @section('content')
+<div class="mx-4" id="formRegisterUser">
+    {{-- {!! Form::open('method="POST') !!} --}}
+    <div class="flex mt-4 p-2">
+        <a href="{{route('employees.index')}}"><button type="button" class="py-2 px-4 rounded-full text-lg text-light font-semibold bg-darkSoft hover:text-lightSoft hover:bg-thirdSoft transition duration-300 ease-in-out"><i class="w-6 fa-solid fa-angles-left"></i> Back</button></a>
+    </div>
     <div class="mt-12 flex justify-center space-x-8">
         <a href="{{route('employees.create')}}">
             <button class="w-32 p-2 bg-third hover:bg-primarySoft rounded-full text-lightSoft hover:text-light font-semibold">Create</button>
@@ -26,13 +28,11 @@
           <span class="font-semibold mr-2 text-left text-light md:text-base sm:text-sm text-xs">In order to perform the employee registration correctly, it is necessary to fill in all the fields with the requested data.</span>
           <svg class="fill-current opacity-75 h-4 w-4  text-lightSoft" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
         </div>
-      </div>
+    </div>
 
-{{-- @endsection
+    {{-- @endsection
 
-@section('content') --}}
-	<div class="md:mx-24 sm:mx-10 mx-0.5 mt-12" id="formRegisterUser">
-		{{-- {!! Form::open('method="POST') !!} --}}
+    @section('content') --}}
 
 
 			{{-- <div class="mt-8 mb-2 mx-8">
@@ -108,19 +108,19 @@
 			<div class="grid grid-cols-2 mx-8 bg-light bg-opacity-60 p-6 sm:p-8 rounded-md gap-x-8">
 				<div class="md:col-span-1 xs:col-span-2 col-span-2 pb-4">
 					<label class="text-darkSoft font-semibold">Clabe</label>
-					<input type="text" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-secondarySoft ring-1 transition ease-in duration-150" placeholder="Clabe">
+					<input type="text" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150" placeholder="Clabe">
 				</div>
 				<div class="md:col-span-1 xs:col-span-2 col-span-2 pb-4">
 					<label class="text-darkSoft font-semibold">Alias</label>
-					<input type="text" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-secondarySoft ring-1 transition ease-in duration-150" placeholder="Alias">
+					<input type="text" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150" placeholder="Alias">
 				</div>
 				<div class="md:col-span-1 xs:col-span-2 col-span-2 pb-4">
 					<label class="text-darkSoft font-semibold">Name</label>
-					<input type="text" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-secondarySoft ring-1 transition ease-in duration-150" placeholder="Employee name">
+					<input type="text" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150" placeholder="Employee name">
 				</div>
 				<div class="md:col-span-1 xs:col-span-2 col-span-2 pb-4">
-					<label class="text-darkSoft font-semibold">User</label>
-                    <select class="w-full text-third h-10 rounded-md px-4 font-semibold focus:outline-none focus:ring-2 ring-secondarySoft ring-1 transition ease-in duration-150 js-user appearance-none select " placeholder="Select an user" name="user"  multiple="multiple" id="user">
+					<label class="text-darkSoft font-semibold"> User </label>
+                    <select class="w-full {{-- text-third h-10 rounded-md px-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150 js-user appearance-none select  --}} js-user" placeholder="Select an user" name="user"  multiple="multiple" id="user">
                         @php
                             $userData   =   ['Jose Carlos Joaquin Vazquez','Diana Lucelly Espinosa Carballo','Carlos Izan Joaquin Espinosa'];
                         @endphp
@@ -131,11 +131,11 @@
 				</div>
 				<div class="md:col-span-1 xs:col-span-2 col-span-2 pb-4">
 					<label class="text-darkSoft font-semibold">Password</label>
-					<input type="password" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-secondarySoft ring-1 transition ease-in duration-150" placeholder="Password">
+					<input type="password" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150" placeholder="Password">
 				</div>
 				<div class="md:col-span-1 xs:col-span-2 col-span-2 pb-4">
 					<label class="text-darkSoft font-semibold">Confirm Password</label>
-					<input type="password" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-secondarySoft ring-1 transition ease-in duration-150" placeholder="Confirm Password">
+					<input type="password" class="w-full text-third h-10 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150" placeholder="Confirm Password">
 				</div>
 			</div>
 			<div class="w-full flex justify-center my-8 space-x-4">

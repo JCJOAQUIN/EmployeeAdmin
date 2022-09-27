@@ -8,10 +8,10 @@
         <link rel="stylesheet" href="{{ asset('css/all.min.css')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Oxygen:wght@300;400;700&family=Roboto:wght@300;400&display=swap">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-		<link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
         <title>EMS - {{$navBarTitle}}</title>
         @yield('css')
     </head>
+
     <body class="{{$bgBody}}" @if ($navBarTitle == "Log In") onload="mostrarReloj()" @endif>
             <header>
                 <div class="bg-primary grid grid-cols-7 w-full items-center">
@@ -36,9 +36,7 @@
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/all.min.js') }}"></script>
 		<script src="{{ asset('js/select2.full.min.js') }}"></script>
-
-
         @if ($navBarTitle == "Log In") <script src="{{ asset('js/reloj.js') }}"></script> @endif
-            @yield('scripts')
+        @yield('scripts')
     </body>
 </html>

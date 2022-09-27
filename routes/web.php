@@ -42,7 +42,10 @@ Route::prefix('employees/')->name('employees.')->group(function()
 Route::resource('employees','App\Http\Controllers\EmployeesConfigurationController');
 
 // Configuration Users Routes
-
+Route::prefix('configuration/users/')->name('users.')->group(function()
+{
+    Route::get('search','App\Http\Controllers\UsersConfigurationController@search')->name('search');
+});
 Route::resource('users','App\Http\Controllers\UsersConfigurationController');
 
 

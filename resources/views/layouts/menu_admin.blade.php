@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{ asset('css/all.min.css')}}">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Oxygen:wght@300;400;700&family=Roboto:wght@300;400&display=swap">
@@ -14,7 +13,7 @@
 	</head>
 	<body class="@if (isset($bgBody)) {{$bgBody}} @endif">
 		<header>
-			<div class=" bg-primarySoft grid md:grid-cols-12 grid-cols-2 w-full items-center fixed z-20">
+			<div class=" bg-primary grid md:grid-cols-12 grid-cols-2 w-full items-center fixed z-20">
 				<div class="text-light text-lg text-center sm:ml-4 ml-12 font-semibold md:col-span-3 col-span-1">Administrator User{{-- {{$navBarTitle}} --}}</div>
 				<div class="col-span-1 mr-8 grid justify-items-end p-2 md:hidden">
                     <button class="font-bold md:hidden text-4xl text-light menuButton"><i class="fa-solid fa-bars"></i></button>
@@ -86,7 +85,6 @@
         <script src="{{ asset('js/jquery-ui.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
 		<script src="{{ asset('js/all.min.js') }}"></script>
-		{{-- <script src="{{ asset('js/select2.full.js') }}"></script> --}}
 		<script src="{{ asset('js/select2.full.min.js') }}"></script>
 
 		<script type="text/javascript">
@@ -123,8 +121,8 @@
 					}
 				});
 			});
-		</script>
+        </script>
 		{{-- @if ($navBarTitle == "Log In") <script src="{{ asset('js/reloj.js') }}"></script> @endif --}}
-			@yield('scripts')
+        @yield('scripts')
 	</body>
 </html>

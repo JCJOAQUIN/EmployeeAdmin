@@ -34,7 +34,11 @@ class UsersConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
+    }
+    public function search(Request $request)
+    {
+        return view('configuration/users/search');
     }
 
     /**

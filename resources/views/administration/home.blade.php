@@ -111,3 +111,13 @@
 	</div>
 	<div class="text-center mt-8"> <| pagination |> </div>
 @endsection
+
+@section('script')
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script style="text/javascript">
+        $(document).ready(function()
+        {
+            
+        });
+    </script>
+@endsection
