@@ -24,38 +24,63 @@
 				<i class="fa-solid fa-users-viewfinder"></i> Search User
 			</div>
             <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-8 mt-8">
-                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Name:", "attributeInput" => "placeholder=\"Write the Name\""]) @endcomponent
-                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "User:", "attributeInput" => "placeholder=\"Write the User\""]) @endcomponent
+                @php
+                    $userSearch =   isset($user) ? $user : "";
+                    $nameSearch =   isset($name) ? $name : "";
+                    $genderSearch =   isset($gender) ? $gender : "";
+                    $stateSearch =   isset($state) ? $state : "";
+                    $nssSearch =   isset($nss) ? $nss : "";
+                    $typeSearch =   isset($type) ? $type : "";
+                @endphp
+                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "User:", "attributeInput" => "name=\"user\" placeholder=\"Write the User\" value=\"".$userSearch."\""]) @endcomponent
+                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Name:", "attributeInput" => "name=\"name\" placeholder=\"Write the Name\" value=\"".$nameSearch."\""]) @endcomponent
                 @php
 					$options = collect();
 					$genderData =   ["Female","Male"];
 					foreach ($genderData as $gender)
 					{
-						$options    =   $options->concat([["value"  =>  $gender, "content" => $gender]]);
+                        if ($gender==$genderSearch)
+                        {
+                            $options    =   $options->concat([["value" => $gender, "content" => $gender, "selected" => "selected"]]);
+                        }
+                        else
+                        {
+                            $options    =   $options->concat([["value"  =>  $gender, "content" => $gender]]);
+                        }
 					}
 				@endphp
 				@component('components.inputs.select', ["label" => "Gender", "options" => $options, "attributeSelect" => "name=\"gender\" multiple=\"multiple\"", "classSelect" => "js-gender"]) @endcomponent
-                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "State:", "attributeInput" => "placeholder=\"Write the State\""]) @endcomponent
-                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "NSS:", "attributeInput" => "placeholder=\"Write the NSS\""]) @endcomponent
-                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Birthday:", "attributeInput" => "placeholder=\"Write the Birthday\""]) @endcomponent
+                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "State:", "attributeInput" => "name=\"state\" placeholder=\"Write the State\" value=\"".$stateSearch."\""]) @endcomponent
+                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "NSS:", "attributeInput" => "name=\"nss\" placeholder=\"Write the NSS\" value=\"".$nssSearch."\""]) @endcomponent
+                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Type:", "attributeInput" => "name=\"type\" placeholder=\"Write the Type\" value=\"".$typeSearch."\""]) @endcomponent
             </div>
             <div class="text-center">
                 <button class="search mt-8 w-24 h-10 bg-teal-500 hover:bg-teal-600 hover:text-light rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-search"></i> Search</button>
             </div>
             <div class="bg-thirdSoft md:mt-8 mt-6 rounded-md bg-opacity-10 font-semibold md:p-8 p-2">
                 <div class="grid grid-cols-12 text-center p-2 bg-teal-800 text-lightSoft rounded-md mb-2">
-                    <div class="col-span-1">#</div>
-                    <div class="col-span-1">Key</div>
-                    <div class="col-span-3">Name</div>
+                    <div class="col-span-1">ID</div>
                     <div class="col-span-1">User</div>
+                    <div class="col-span-4">Name</div>
                     <div class="col-span-1">Type</div>
                     <div class="col-span-1">Gender</div>
                     <div class="col-span-1">State</div>
-                    <div class="col-span-1">NSS</div>
-                    <div class="col-span-1">Birthday</div>
+                    <div class="col-span-2">NSS</div>
                     <div class="col-span-1">Action</div>
                 </div>
-                <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
+                @foreach ($requests as $request)
+                    <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
+                        <div class="col-span-1"> {{isset($request->id) ? $request->id : "---"}} </div>
+                        <div class="col-span-1"> {{isset($request->user) ? $request->user : "---"}} </div>
+                        <div class="col-span-4"> {{isset($request->name) ? $request->fullName() : "---"}} </div>
+                        <div class="col-span-1"> type </div>
+                        <div class="col-span-1"> {{isset($request->gender) ? $request->gender : "---"}} </div>
+                        <div class="col-span-1"> {{isset($request->state) ? $request->state : "---"}} </div>
+                        <div class="col-span-2"> {{isset($request->nss) ? $request->nss : "---"}} </div>
+                        <div class="col-span-1"> <button><i class="fa-solid fa-pencil"></i></button> </div>
+                    </div>
+                @endforeach
+                {{-- <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
                     <div class="col-span-1">1</div>
                     <div class="col-span-1">Key</div>
                     <div class="col-span-3">José Carlos Joaquín Vazquez</div>
@@ -114,7 +139,10 @@
                     <div class="col-span-1">NSS</div>
                     <div class="col-span-1">Birthday</div>
                     <div class="col-span-1">Action</div>
-                </div>
+                </div> --}}
+            </div>
+            <div class="text-center">
+                {{$requests->links()}}
             </div>
         </form>
 

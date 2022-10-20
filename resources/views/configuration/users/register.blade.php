@@ -38,15 +38,7 @@
 				@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Name:", "attributeInput" => "name=\"name\" type=\"text\" placeholder=\"name\""]) @endcomponent
 				@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Last Name:", "attributeInput" => "name=\"lastName\" type=\"text\" placeholder=\"Last Name\""]) @endcomponent
 				@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Second last name", "attributeInput" => "name=\"secondLastName\" type=\"text\" placeholder=\"Second Last Name\""]) @endcomponent
-				{{-- <div class="col-span-1">
-					<label class="text-darkSoft font-semibold">Gender:</label>
-					<select name="gender" type="text" multiple="multiple" class="relative text-third h-10 rounded-md font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150">
-						<option value="1">Female</option>
-						<option value="2">Male</option>
-					</select>
-				</div> --}}
-
-				@php
+			    @php
 					$options = collect();
 					$genderData =   ["Female","Male"];
 					foreach ($genderData as $gender)
@@ -67,7 +59,7 @@
 				@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "ZIP / Postal code:", "attributeInput" => "name=\"zip\" type=\"text\" placeholder=\"ZIP / Postal code\""]) @endcomponent
 				<div class="md:col-span-3 sm:col-span-2 col-span-1">
 					<label class="text-darkSoft font-semibold">Address:</label>
-					<textarea type="text" class="w-full text-third h-16 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150" placeholder="Write your Address complete"></textarea>
+					<textarea type="text" name="address" class="w-full text-third h-16 rounded-md p-4 font-semibold focus:outline-none focus:ring-2 ring-primarySoft ring-1 transition ease-in duration-150" placeholder="Write your Address complete"></textarea>
 				</div>
 			</div>
 			<div class="mt-8 mb-2">
