@@ -19,7 +19,21 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
+        'second_last_name',
         'email',
+        'gender',
+        'birthday',
+        'curp',
+        'rfc',
+        'nss',
+        'phone',
+        'state',
+        'township',
+        'city',
+        'address',
+        'postal_code',
+        'user',
         'password',
     ];
 
@@ -41,4 +55,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    function fullName(){
+        return $this->name . ' ' . $this->last_name . ' ' . $this->second_last_name;
+    }
 }
