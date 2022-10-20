@@ -107,6 +107,8 @@
 	</div>
 @endsection
 @section('scripts')
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
     {{-- <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('select2/dist/js/select2.min.js')}}"></script>
@@ -114,6 +116,11 @@
     <script type="text/javascript">
         $(document).ready(function()
         {
+            swal.fire({
+                imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
+                showConfirmButton: false,
+                timer: 800,
+            });
             $(".js-gender").select2({
                 placeholder         :    "Select a gender",
                 language            :   "en",
@@ -121,6 +128,16 @@
             })
         });
     </script> --}}
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            swal.fire({
+                imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
+                showConfirmButton: false,
+                timer: 800,
+            });
+        });
+    </script>
 @endsection
 
 

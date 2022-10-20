@@ -159,21 +159,15 @@
 @endsection
 
 @section('scripts')
-
-<script src="js/sweetalert2.all.min.js"></script>
-
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script type="text/javascript">
+        swal.fire({
+            imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
+            showConfirmButton: false,
+            timer: 800
+        });
         $(document).ready(function()
         {
-            $(document).on('click','.createEmployee',function()
-            {
-                swal.fire({
-                    imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
-                    imageWidth: 150,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            });
         });
     </script>
 @endsection
