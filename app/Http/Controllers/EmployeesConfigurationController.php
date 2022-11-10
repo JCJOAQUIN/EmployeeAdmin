@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class EmployeesConfigurationController extends Controller
 {
@@ -85,5 +86,22 @@ class EmployeesConfigurationController extends Controller
     public function search()
     {
         return view('configuration/employees/search');
+    }
+
+    public function getUser(Request $request)
+    {
+        if($request->ajax())
+		{
+			$users 	= User::where('id',$request->userId)->get();
+			if (count($users) > 0)
+			{
+                $nameUser = "";
+                foreach ($users as $user)
+                {
+                    $nameUser  =   $user->fullName();
+                }
+				return Response($nameUser);
+			}
+		}
     }
 }

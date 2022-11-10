@@ -36,8 +36,7 @@ class UsersConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-        $users                      =   new App\User();
+        $users                      =   new App\Models\User();
         $users->name                =   $request->name;
         $users->last_name           =   $request->lastName;
         $users->second_last_name    =   $request->secondLastName;
@@ -54,6 +53,7 @@ class UsersConfigurationController extends Controller
         $users->postal_code         =   $request->zip;
         $users->address             =   $request->address;
         $users->user                =   $request->user;
+        $users->user_kind           =   $request->userKind;
         $users->password            =   $request->password;
         $users->save();
         $alert = "swal('', 'User successfully registered', 'success');";
@@ -61,7 +61,6 @@ class UsersConfigurationController extends Controller
     }
     public function search(Request $request)
     {
-        // return $request;
         $user   =   $request->user;
         $name   =   $request->name;
         $gender =   $request->gender;
@@ -90,9 +89,14 @@ class UsersConfigurationController extends Controller
             {
                 $query->where('nss','like','%'.$nss.'%');
             }
-            if ($type!="")
+            if ($type == '0')
             {
-                $query->where('type','like','%'.$type.'%');
+                $query->where('user_kind',$type);
+            }
+            if ($type=='1')
+            {
+                $query->where('user_kind',$type)
+                ->orWhere('user_kind',null);
             }
         })
         ->orderBy('id','DESC')
@@ -128,7 +132,8 @@ class UsersConfigurationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $requestUser    =   App\Models\User::find($id);
+        return view('configuration/users/register',['requests'=>$requestUser]);
     }
 
     /**
@@ -140,7 +145,28 @@ class UsersConfigurationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usersUpdate                      =   App\Models\User::find($id);
+        $usersUpdate->name                =   $request->name;
+        $usersUpdate->last_name           =   $request->lastName;
+        $usersUpdate->second_last_name    =   $request->secondLastName;
+        $usersUpdate->gender              =   $request->gender;
+        $usersUpdate->birthday            =   $request->birthday;
+        $usersUpdate->curp                =   $request->curp;
+        $usersUpdate->rfc                 =   $request->rfc;
+        $usersUpdate->nss                 =   $request->nss;
+        $usersUpdate->phone               =   $request->phone;
+        $usersUpdate->email               =   $request->email;
+        $usersUpdate->state               =   $request->state;
+        $usersUpdate->township            =   $request->township;
+        $usersUpdate->city                =   $request->city;
+        $usersUpdate->postal_code         =   $request->zip;
+        $usersUpdate->address             =   $request->address;
+        $usersUpdate->user                =   $request->user;
+        $usersUpdate->user_kind           =   $request->userKind;
+        $usersUpdate->password            =   $request->password;
+        $usersUpdate->save();
+        $alert = "swal('', 'User successfully registered', 'success');";
+        return redirect()->route('users.search')->with('alert',$alert);
     }
 
     /**

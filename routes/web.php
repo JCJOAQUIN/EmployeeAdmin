@@ -38,6 +38,7 @@ Route::resource('administration','App\Http\Controllers\EmployeeAdministrationCon
 Route::prefix('employees/')->name('employees.')->group(function()
 {
     Route::get('search','App\Http\Controllers\EmployeesConfigurationController@search')->name('search');
+    Route::get('user','App\Http\Controllers\EmployeesConfigurationController@getUser')->name('getUser');
 });
 Route::resource('employees','App\Http\Controllers\EmployeesConfigurationController');
 

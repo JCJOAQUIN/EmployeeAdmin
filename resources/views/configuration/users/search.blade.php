@@ -52,7 +52,22 @@
 				@component('components.inputs.select', ["label" => "Gender", "options" => $options, "attributeSelect" => "name=\"gender\" multiple=\"multiple\"", "classSelect" => "js-gender"]) @endcomponent
                 @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "State:", "attributeInput" => "name=\"state\" placeholder=\"Write the State\" value=\"".$stateSearch."\""]) @endcomponent
                 @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "NSS:", "attributeInput" => "name=\"nss\" placeholder=\"Write the NSS\" value=\"".$nssSearch."\""]) @endcomponent
-                @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Type:", "attributeInput" => "name=\"type\" placeholder=\"Write the Type\" value=\"".$typeSearch."\""]) @endcomponent
+                @php
+                    $options    =   collect();
+                    $kindUserData =   ["0"=>"Administrator","1"=>"Employee"];
+                    foreach ($kindUserData as $k=>$kindUser)
+                    {
+                        if (isset($type) && $type == $k)
+                        {
+                            $options    =   $options->concat([["value"  =>  $k, "content" => $kindUser, "selected" => "selected"]]);
+                        }
+                        else
+                        {
+                            $options    =   $options->concat([["value"  =>  $k, "content" => $kindUser]]);
+                        }
+                    }
+                @endphp
+				@component('components.inputs.select', ["label" => "Kind User:", "options" => $options, "attributeSelect" => "name=\"type\" multiple=\"multiple\"", "classSelect" => "js-kindUser"]) @endcomponent
             </div>
             <div class="text-center">
                 <button class="search mt-8 w-24 h-10 bg-teal-500 hover:bg-teal-600 hover:text-light rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-search"></i> Search</button>
@@ -62,7 +77,7 @@
                     <div class="col-span-1">ID</div>
                     <div class="col-span-1">User</div>
                     <div class="col-span-4">Name</div>
-                    <div class="col-span-1">Type</div>
+                    <div class="col-span-1">Kind User</div>
                     <div class="col-span-1">Gender</div>
                     <div class="col-span-1">State</div>
                     <div class="col-span-2">NSS</div>
@@ -73,73 +88,26 @@
                         <div class="col-span-1"> {{isset($request->id) ? $request->id : "---"}} </div>
                         <div class="col-span-1"> {{isset($request->user) ? $request->user : "---"}} </div>
                         <div class="col-span-4"> {{isset($request->name) ? $request->fullName() : "---"}} </div>
-                        <div class="col-span-1"> type </div>
+                        <div class="col-span-1">
+                            @php
+                                $userKind   =   "Employee";
+                                if (isset($request->user_kind) && $request->user_kind=='0')
+                                {
+                                    $userKind   =   "Administrator";
+                                }
+                            @endphp
+                            {{$userKind}}
+                        </div>
                         <div class="col-span-1"> {{isset($request->gender) ? $request->gender : "---"}} </div>
                         <div class="col-span-1"> {{isset($request->state) ? $request->state : "---"}} </div>
                         <div class="col-span-2"> {{isset($request->nss) ? $request->nss : "---"}} </div>
-                        <div class="col-span-1"> <button><i class="fa-solid fa-pencil"></i></button> </div>
+                        <div class="col-span-1 space-x-2">
+                            <a href="{{route('users.edit',$request->id)}}"><button type="button" title="View User information"><i class="fa-solid fa-address-card text-third hover:text-thirdSoft"></i></button></a>
+                            <a href="{{route('users.edit',$request->id)}}"><button type="button" title="Edit User"><i class="fa-solid fa-user-pen text-primary hover:text-primarySoft"></i></button></a>
+                            <button class="deleteUser" title="Delete User"><i class="fa-solid fa-user-xmark text-dangerDark hover:text-dangerSoft"></i></button>
+                        </div>
                     </div>
                 @endforeach
-                {{-- <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
-                    <div class="col-span-1">1</div>
-                    <div class="col-span-1">Key</div>
-                    <div class="col-span-3">José Carlos Joaquín Vazquez</div>
-                    <div class="col-span-1">User</div>
-                    <div class="col-span-1">Administrator</div>
-                    <div class="col-span-1">Male</div>
-                    <div class="col-span-1">State</div>
-                    <div class="col-span-1">NSS</div>
-                    <div class="col-span-1">Birthday</div>
-                    <div class="col-span-1">Action</div>
-                </div>
-                <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
-                    <div class="col-span-1">2</div>
-                    <div class="col-span-1">Key</div>
-                    <div class="col-span-3">José Carlos Joaquín Vazquez</div>
-                    <div class="col-span-1">User</div>
-                    <div class="col-span-1">HHRR</div>
-                    <div class="col-span-1">Gender</div>
-                    <div class="col-span-1">State</div>
-                    <div class="col-span-1">NSS</div>
-                    <div class="col-span-1">Birthday</div>
-                    <div class="col-span-1">Action</div>
-                </div>
-                <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
-                    <div class="col-span-1">3</div>
-                    <div class="col-span-1">Key</div>
-                    <div class="col-span-3">José Carlos Joaquín Vazquez</div>
-                    <div class="col-span-1">User</div>
-                    <div class="col-span-1">Type</div>
-                    <div class="col-span-1">Gender</div>
-                    <div class="col-span-1">State</div>
-                    <div class="col-span-1">NSS</div>
-                    <div class="col-span-1">Birthday</div>
-                    <div class="col-span-1">Action</div>
-                </div>
-                <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
-                    <div class="col-span-1">4</div>
-                    <div class="col-span-1">Key</div>
-                    <div class="col-span-3">José Carlos Joaquín Vazquez</div>
-                    <div class="col-span-1">User</div>
-                    <div class="col-span-1">Type</div>
-                    <div class="col-span-1">Gender</div>
-                    <div class="col-span-1">State</div>
-                    <div class="col-span-1">NSS</div>
-                    <div class="col-span-1">Birthday</div>
-                    <div class="col-span-1">Action</div>
-                </div>
-                <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft">
-                    <div class="col-span-1">5</div>
-                    <div class="col-span-1">Key</div>
-                    <div class="col-span-3">José Carlos Joaquín Vazquez</div>
-                    <div class="col-span-1">User</div>
-                    <div class="col-span-1">Type</div>
-                    <div class="col-span-1">Gender</div>
-                    <div class="col-span-1">State</div>
-                    <div class="col-span-1">NSS</div>
-                    <div class="col-span-1">Birthday</div>
-                    <div class="col-span-1">Action</div>
-                </div> --}}
             </div>
             <div class="text-center">
                 {{$requests->links()}}
@@ -163,6 +131,13 @@
 				placeholder         :   "Select a Gender",
 				language            :   "en",
 				maximumSelectionLength  : 1,
+				width               : "100%"
+			})
+            $('.js-kindUser').select2({
+				placeholder         :   "Select a Kind User",
+				language            :   "en",
+				maximumSelectionLength  : 1,
+                minimumInputLength      : 2,
 				width               : "100%"
 			});
 		});
