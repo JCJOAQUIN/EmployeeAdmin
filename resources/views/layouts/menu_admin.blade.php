@@ -75,7 +75,7 @@
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" href="#"><button class="w-full font-semibold">Help</button></a>
             </div>
 		</header>
-		<main class="mainContent pt-20 pb-8 md:px-20 px-8">
+		<main class="mainContent pt-20 pb-8 md:px-10 px-8">
             <div class="text-4xl text-third font-semibold tracking-wide text-center">
                 <label>Employee Management System</label>
             </div>
@@ -121,6 +121,9 @@
 					}
 				});
 			});
+            @if (isset($alert))
+                {{$alert}}
+            @endif
         </script>
 		{{-- @if ($navBarTitle == "Log In") <script src="{{ asset('js/reloj.js') }}"></script> @endif --}}
         @yield('scripts')

@@ -111,21 +111,25 @@
 					}
 				@endphp
 				@component('components.inputs.select', ["label" => "User Kind", "options" => $options, "attributeSelect" => "name=\"userKind\" multiple=\"multiple\"", "classSelect" => "js-userKind"]) @endcomponent
-				<div class="relative col-span-1">
-					@component('components.inputs.inputCombo', ["classCombo" => "absolute", "label" => "Password:", "attributeInput" => "name=\"password\" type=\"password\" placeholder=\"Write a Password\" value=\"".$password."\"", "clasInput" => "password"]) @endcomponent
-					<div class="relative w-8 float-right mt-8 mr-2">
-                        <span id="btnShowPassword"><i class="w-6 fa-solid fa-eye hover:text-primary transition duration-500 ease-in-out"></i></span>
-                        <span id="btnHidePassword" class="hidden"><i class="w-6 fa-solid fa-eye-slash hover:text-primary transition duration-500 ease-in-out"></i></span>
+				<div class="col-span-1 sm:mt-0 mt-3">
+                    <div class="relative">
+                        @component('components.inputs.inputCombo', ["classCombo" => "absolute", "label" => "Password:", "attributeInput" => "name=\"password\" type=\"password\" placeholder=\"Write a Password\" value=\"".$password."\"", "clasInput" => "password"]) @endcomponent
+                        <div class="relative w-8 float-right mt-8 mr-2">
+                            <span id="btnShowPassword"><i class="w-6 fa-solid fa-eye text-primarySoft hover:text-primary transition duration-300 ease-in-out" title="Show Password"></i></span>
+                            <span id="btnHidePassword" class="hidden"><i class="w-6 fa-solid fa-eye-slash text-primarySoft hover:text-primary transition duration-300 ease-in-out" title="Hide Password"></i></span>
+                        </div>
                     </div>
-				</div>
-				<div class="relative col-span-1">
-					@component('components.inputs.inputCombo', ["classCombo" => "absolute", "label" => "Confirm Password:", "attributeInput" => "name=\"passwordConfirmation\" type=\"password\" placeholder=\"Confirm the Password\" value=\"".$password."\"", "clasInput" => "passwordConfirm"]) @endcomponent
-					<div class="relative w-8 float-right mt-8 mr-2">
-                        <span id="btnShowConfirmPassword"><i class="w-6 fa-solid fa-eye hover:text-primary transition duration-500 ease-in-out"></i></span>
-                        <span id="btnHideConfirmPassword" class="hidden"><i class="w-6 fa-solid fa-eye-slash hover:text-primary transition duration-500 ease-in-out"></i></span>
+                </div>
+                <div class="col-span-1 sm:mt-0 mt-5">
+                    <div class="relative">
+                        @component('components.inputs.inputCombo', ["classCombo" => "absolute", "label" => "Confirm Password:", "attributeInput" => "name=\"passwordConfirmation\" type=\"password\" placeholder=\"Confirm the Password\" value=\"".$password."\"", "clasInput" => "passwordConfirm"]) @endcomponent
+                        <div class="relative w-8 float-right mt-8 mr-2">
+                            <span id="btnShowConfirmPassword"><i class="w-6 fa-solid fa-eye text-primarySoft hover:text-primary transition duration-300 ease-in-out" title="Show Password Confirmation"></i></span>
+                            <span id="btnHideConfirmPassword" class="hidden"><i class="w-6 fa-solid fa-eye-slash text-primarySoft hover:text-primary transition duration-300 ease-in-out" title="Hide Password Confirmation"></i></span>
+                        </div>
                     </div>
-					<div class="validatePasswordConfirmation bg-dangerSoft bg-opacity-50 rounded-md hidden p-2 content-center"> <label class="text-third font-bold">Error: </label><label class="ml-6 text-center text-dangerDark font-semibold">Passwords don´t match</label><i class="text-dangerDark fa-solid fa-circle-exclamation h-6 ml-6"></i></div>
-				</div>
+                </div>
+                <div class="col-span-1 mt-6 validatePasswordConfirmation bg-dangerSoft bg-opacity-50 rounded-md hidden p-2 content-center"> <label class="text-third font-bold">Error: </label><label class="ml-6 text-center text-dangerDark font-semibold">Passwords don´t match</label><i class="text-dangerDark fa-solid fa-circle-exclamation h-6 ml-6"></i></div>
 			</div>
 			<div class="w-full flex justify-center my-8 space-x-4">
 				@if (isset($requests))

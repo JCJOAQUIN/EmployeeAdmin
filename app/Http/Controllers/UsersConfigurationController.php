@@ -61,13 +61,15 @@ class UsersConfigurationController extends Controller
     }
     public function search(Request $request)
     {
-        $user   =   $request->user;
-        $name   =   $request->name;
-        $gender =   $request->gender;
-        $state  =   $request->state;
-        $nss    =   $request->nss;
-        $type   =   $request->type;
-        $requests   =   App\Models\User::where(function($query) use ($user, $name, $gender, $state, $nss, $type)
+        $user       =   $request->user;
+        $name       =   $request->name;
+        $gender     =   $request->gender;
+        $status     =   $request->status;
+        $nss        =   $request->nss;
+        $type       =   $request->type;
+        // return $status;
+        $statusKey  =   "";
+        $requests   =   App\Models\User::where(function($query) use ($user, $name, $gender, $status, $nss, $type)
         {
             if ($user!="")
             {
@@ -81,9 +83,20 @@ class UsersConfigurationController extends Controller
             {
                 $query->where('gender','like','%'.$gender.'%');
             }
-            if ($state!="")
+            if ($status=="2")
             {
-                $query->where('state','like','%'.$state.'%');
+                $query->where('deleted_at','==','');
+                $statusKey  =   "2";
+            }
+            if ($status=="1")
+            {
+                $query->onlyTrashed();
+                $statusKey  =   "1";
+            }
+            if ($status=="")
+            {
+                $query->withTrashed();
+                $statusKey  =   "0";
             }
             if ($nss!="")
             {
@@ -99,20 +112,27 @@ class UsersConfigurationController extends Controller
                 ->orWhere('user_kind',null);
             }
         })
+        ->withTrashed()
         ->orderBy('id','DESC')
-        ->paginate(10);
+        ->paginate(5);
         return view('configuration/users/search',
         [
             'requests'  =>  $requests,
             'user'      =>$user,
             'name'      =>$name,
             'gender'    =>$gender,
-            'state'     =>$state,
+            'status'     =>$statusKey,
             'nss'       =>$nss,
             'type'      =>$type
+
         ]);
     }
 
+    function view(Request $request, $id)
+    {
+        $requestUser    =   App\Models\User::withTrashed()->find($id);
+        return view('configuration/users/userInformation',['requests'=>$requestUser]);
+    }
     /**
      * Display the specified resource.
      *
@@ -169,6 +189,20 @@ class UsersConfigurationController extends Controller
         return redirect()->route('users.search')->with('alert',$alert);
     }
 
+    public function active($id)
+    {
+        $user = App\Models\User::onlyTrashed()->find($id);
+        $user->restore();
+        $alert	=	"swal('','User successfully restored','success');";
+        return redirect()->route('users.search')->with('alert',$alert);
+    }
+    public function suspend($id)
+    {
+        $user = App\Models\User::find($id);
+        $user->delete();
+        $alert	=	"swal('','User successfully suspended','success');";
+        return redirect()->route('users.search')->with('alert',$alert);
+    }
     /**
      * Remove the specified resource from storage.
      *
