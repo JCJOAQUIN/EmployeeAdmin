@@ -12,6 +12,7 @@
 		@yield('css')
 	</head>
 	<body class="@if (isset($bgBody)) {{$bgBody}} @endif">
+        @include('sweetalert::alert')
 		<header>
 			<div class=" bg-primary grid md:grid-cols-12 grid-cols-2 w-full items-center fixed z-20">
 				<div class="text-light text-lg text-center sm:ml-4 ml-12 font-semibold md:col-span-3 col-span-1">Administrator User{{-- {{$navBarTitle}} --}}</div>
@@ -86,7 +87,7 @@
         <script src="{{ asset('js/app.js') }}"></script>
 		<script src="{{ asset('js/all.min.js') }}"></script>
 		<script src="{{ asset('js/select2.full.min.js') }}"></script>
-
+        
 		<script type="text/javascript">
 			$(document).ready(function()
 			{
@@ -121,9 +122,6 @@
 					}
 				});
 			});
-            @if (isset($alert))
-                {{$alert}}
-            @endif
         </script>
 		{{-- @if ($navBarTitle == "Log In") <script src="{{ asset('js/reloj.js') }}"></script> @endif --}}
         @yield('scripts')

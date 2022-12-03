@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use App\Models\User;
+// Use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersConfigurationController extends Controller
 {
@@ -15,7 +17,7 @@ class UsersConfigurationController extends Controller
      */
     public function index()
     {
-        return view('configuration/users/users');
+        return view('Configuration/Users/users');
     }
 
     /**
@@ -56,8 +58,8 @@ class UsersConfigurationController extends Controller
         $users->user_kind           =   $request->userKind;
         $users->password            =   $request->password;
         $users->save();
-        $alert = "swal('', 'User successfully registered', 'success');";
-        return redirect()->route('users.search')->with('alert',$alert);
+        Alert::success('', 'User registered successfully!');
+        return redirect()->route('users.search');
     }
     public function search(Request $request)
     {
@@ -185,23 +187,24 @@ class UsersConfigurationController extends Controller
         $usersUpdate->user_kind           =   $request->userKind;
         $usersUpdate->password            =   $request->password;
         $usersUpdate->save();
-        $alert = "swal('', 'User successfully registered', 'success');";
-        return redirect()->route('users.search')->with('alert',$alert);
+        Alert::success('User updated successfully!');
+        return redirect()->route('users.search');
+        // return redirect()->route('users.search')->with('alert',$alert);
     }
 
     public function active($id)
     {
         $user = App\Models\User::onlyTrashed()->find($id);
         $user->restore();
-        $alert	=	"swal('','User successfully restored','success');";
-        return redirect()->route('users.search')->with('alert',$alert);
+        Alert::success('','User restored successfully!');
+        return redirect()->route('users.search');
     }
     public function suspend($id)
     {
         $user = App\Models\User::find($id);
         $user->delete();
-        $alert	=	"swal('','User successfully suspended','success');";
-        return redirect()->route('users.search')->with('alert',$alert);
+        Alert::success('','User suspended successfully!');
+        return redirect()->route('users.search');
     }
     /**
      * Remove the specified resource from storage.

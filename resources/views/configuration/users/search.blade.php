@@ -199,7 +199,17 @@
 	</div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+    {{-- <script src="js/jquery-3.6.0.min.js"></script> --}}
+    @if (!session('alert'))
+        <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+        <script>
+            swal.fire({
+                imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
+                showConfirmButton: false,
+                timer: 600,
+            });
+        </script>
+    @endif
 	<script type="text/javascript">
 		$(document).ready(function()
 		{
@@ -222,36 +232,7 @@
 				maximumSelectionLength  : 1,
 				width               : "100%"
 			})
-            // $(document).on('click','.disableUser',function()
-            // {
-            //     $(this).addClass('hidden');
-            //     $(this).parents('.userRow').find('.enableUser').removeClass('hidden');
-            // })
-            // .on('click','.enableUser',function()
-            // {
-            //     $(this).addClass('hidden');
-            //     $(this).parents('.userRow').find('.disableUser').removeClass('hidden');
-            // })
-            // .on('click','.disableUserSM',function()
-            // {
-            //     $(this).addClass('hidden');
-            //     $(this).parents('.userRow').find('.enableUserSM').removeClass('hidden');
-            // })
-            // .on('click','.enableUserSM',function()
-            // {
-            //     $(this).addClass('hidden');
-            //     $(this).parents('.userRow').find('.disableUserSM').removeClass('hidden');
-            // })
 		});
-        @if (isset($alert))
-            {{$alert}}
-        @else
-            swal.fire({
-                imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
-                showConfirmButton: false,
-                timer: 800,
-            });
-        @endif
 	</script>
 @endsection
 

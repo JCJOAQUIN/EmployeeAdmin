@@ -15,13 +15,18 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+    @if (!session('alert'))
+        <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+        <script>
+            swal.fire({
+                imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
+                showConfirmButton: false,
+                timer: 600,
+            });
+        </script>
+    @endif
     <script type="text/javascript">
-        swal.fire({
-            imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
-            showConfirmButton: false,
-            timer: 800,
-        });
+
         $(document).ready(function()
         {
         });

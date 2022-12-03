@@ -13,6 +13,7 @@
     </head>
 
     <body class="{{$bgBody}}" @if ($navBarTitle == "Log In") onload="mostrarReloj()" @endif>
+        {{-- @include('sweetalert::alert') --}}
             <header>
                 <div class="bg-primary grid grid-cols-7 w-full items-center">
                     <div class="text-light md:text-xl text-md text-left md:ml-12 sm:ml-8 xs:ml-4 ml-12 font-semibold col-span-2">{{$navBarTitle}}</div>
