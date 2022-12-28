@@ -53,8 +53,7 @@
                         }
 					}
 				@endphp
-				@component('components.inputs.select', ["label" => "Gender", "options" => $options, "attributeSelect" => "name=\"gender\" multiple=\"multiple\"", "classSelect" => "js-gender"]) @endcomponent
-                {{$status}}
+				@component('components.inputs.select', ["label" => "Gender:", "options" => $options, "attributeSelect" => "name=\"gender\" multiple=\"multiple\"", "classSelect" => "js-gender"]) @endcomponent
                 @php
 					$options = collect();
 					$statusData =   ["1"=>"Suspended","2"=>"Active"];
@@ -70,7 +69,7 @@
                         }
 					}
 				@endphp
-				@component('components.inputs.select', ["label" => "Status", "options" => $options, "attributeSelect" => "name=\"status\" multiple=\"multiple\"", "classSelect" => "js-status"]) @endcomponent
+				@component('components.inputs.select', ["label" => "Status:", "options" => $options, "attributeSelect" => "name=\"status\" multiple=\"multiple\"", "classSelect" => "js-status"]) @endcomponent
 
                 @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "State:", "attributeInput" => "name=\"state\" placeholder=\"Write the State\" value=\"".$stateSearch."\""]) @endcomponent
                 @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "NSS:", "attributeInput" => "name=\"nss\" placeholder=\"Write the NSS\" value=\"".$nssSearch."\""]) @endcomponent

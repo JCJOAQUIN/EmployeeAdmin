@@ -77,7 +77,7 @@
             </div>
 		</header>
 		<main class="mainContent pt-20 pb-8 md:px-10 px-8">
-            <div class="text-4xl text-third font-semibold tracking-wide text-center">
+            <div class="md:text-4xl text-2xl text-third font-semibold tracking-wide text-center">
                 <label>Employee Management System</label>
             </div>
 			@yield('content')
@@ -87,7 +87,7 @@
         <script src="{{ asset('js/app.js') }}"></script>
 		<script src="{{ asset('js/all.min.js') }}"></script>
 		<script src="{{ asset('js/select2.full.min.js') }}"></script>
-        
+
 		<script type="text/javascript">
 			$(document).ready(function()
 			{

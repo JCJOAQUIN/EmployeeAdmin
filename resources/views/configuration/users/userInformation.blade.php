@@ -102,3 +102,14 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+    <script>
+        swal.fire({
+            imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
+            showConfirmButton: false,
+            timer: 600,
+        });
+    </script>
+@endsection

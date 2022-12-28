@@ -120,12 +120,12 @@ class UsersConfigurationController extends Controller
         return view('configuration/users/search',
         [
             'requests'  =>  $requests,
-            'user'      =>$user,
-            'name'      =>$name,
-            'gender'    =>$gender,
-            'status'     =>$statusKey,
-            'nss'       =>$nss,
-            'type'      =>$type
+            'user'      =>  $user,
+            'name'      =>  $name,
+            'gender'    =>  $gender,
+            'status'    =>  $statusKey,
+            'nss'       =>  $nss,
+            'type'      =>  $type
 
         ]);
     }
