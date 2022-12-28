@@ -12,10 +12,10 @@
 		</div>
 		<div class="mt-4 flex justify-center space-x-8">
 			<a href="{{route('employees.create')}}">
-				<button class="w-32 p-2 bg-third hover:bg-primarySoft rounded-full text-lightSoft hover:text-light font-semibold">Create</button>
+				<button class="w-32 p-2 bg-third hover:bg-primarySoft rounded-full text-lightSoft hover:text-light font-semibold" type="button">Create</button>
 			</a>
 			<a href="{{route('employees.search')}}">
-				<button class="w-32 p-2 bg-secondary hover:bg-secondarySoft rounded-full text-lightSoft hover:text-light font-semibold">Search</button>
+				<button class="w-32 p-2 bg-secondary hover:bg-secondarySoft rounded-full text-lightSoft hover:text-light font-semibold" type="button">Search</button>
 			</a>
 		</div>
 		<div class="text-2xl font-semibold pb-1 pl-2 mt-8 border-b-4 border-primary text-teal-600">
@@ -32,38 +32,38 @@
 			<label class="font-bold text-primary xs:text-md divide-y-2 divide-solid divide-secondary"><i class="text-xl fa-solid fa-user-tie"></i> EMPLOYEE INFORMATION</label>
 		</div>
 		<div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 bg-light bg-opacity-60 p-6 sm:p-8 rounded-md gap-x-8">
-			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Clabe:", "attributeInput" => "name=\"clabe\" type=\"text\" placeholder=\"Write a Clabe\""]) @endcomponent
+			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Clabe:", "attributeInput" => "readonly name=\"clabe\" id=\"clabe\" type=\"text\" placeholder=\"Clabe\"", 'clasInput' => 'bg-light bg-opacity-10']) @endcomponent
 			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Alias (Optional):", "attributeInput" => "name=\"alias\" type=\"text\" placeholder=\"Write an Alias\""]) @endcomponent
 			@php
 				$options = collect();
-                $usersData  =   App\Models\User::get();
+                $usersData  =   App\Models\User::orderBy('id','ASC')->get();
 				foreach ($usersData as $users)
 				{
-					$options = $options->concat([["value"  =>  $users->id, "content" => $users->user]]);
+					$options = $options->concat([["value"  =>  $users->id, "content" => $users->id." - ".$users->user]]);
 				}
 			@endphp
 			@component('components.inputs.select', ["label" => "User:", "options" => $options, "attributeSelect" => "name=\"user\" multiple=\"multiple\" id=\"user\""]) @endcomponent
 			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Name:",  "attributeInput" => "disabled name=\"name\" type=\"text\" placeholder=\"Name\" id=\"name\""]) @endcomponent
             @php
 				$options = collect();
-                $usersData  =   App\Models\User::get();
-				foreach ($usersData as $users)
+                $areasData  =   App\Models\Area::orderBy('id','ASC')->get();
+				foreach ($areasData as $area)
 				{
-					$options = $options->concat([["value"  =>  $users->id, "content" => $users->user]]);
+					$options = $options->concat([["value"  =>  $area->id, "content" => $area->id." - ".$area->name]]);
 				}
 			@endphp
             @component('components.inputs.select', ["label" => "Area:", "options" => $options, "attributeSelect" => "name=\"area\" multiple=\"multiple\" id=\"area\""]) @endcomponent
             @php
 				$options = collect();
-                $usersData  =   App\Models\User::get();
-				foreach ($usersData as $users)
+                $departmentData  =   App\Models\Department::orderBy('id','ASC')->get();
+				foreach ($departmentData as $department)
 				{
-					$options = $options->concat([["value"  =>  $users->id, "content" => $users->user]]);
+					$options = $options->concat([["value"  =>  $department->id, "content" => $department->id." - ".$department->name]]);
 				}
 			@endphp
             @component('components.inputs.select', ["label" => "Department:", "options" => $options, "attributeSelect" => "name=\"department\" multiple=\"multiple\" id=\"department\""]) @endcomponent
-			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Password:", "attributeInput" => "name=\"password\" type=\"text\" placeholder=\"Write a Password\""]) @endcomponent
-			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Confirm Password:", "attributeInput" => "name=\"confirmPassword\" type=\"text\" placeholder=\"Confirm Password\""]) @endcomponent
+			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Password:", "attributeInput" => "name=\"password\" type=\"password\" placeholder=\"Write a Password\""]) @endcomponent
+			@component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Confirm Password:", "attributeInput" => "name=\"confirmPassword\" type=\"password\" placeholder=\"Confirm Password\""]) @endcomponent
 		</div>
 		<div class="w-full flex justify-center my-8 space-x-4">
 			<button class="save w-24 h-10 bg-secondary rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-check"></i> Save</button>
@@ -110,6 +110,21 @@
                     }
                 })
             })
+            .on('change','#user, #area, #department',function()
+            {
+                user = $('#user').val() < 10 ? '0'+$('#user').val() : $('#user').val();
+                area = $('#area').val() < 10 ? '0'+$('#area').val() : $('#area').val();
+                department= $('#department').val() < 10 ? '0'+$('#department').val() : $('#department').val();
+                if(user!='0' && area!='0' && department!='0')
+                {
+                    $('#clabe').val('22'+area+department+user);
+                }
+                else
+                {
+                    $('#clabe').val('');
+                }
+            })
+
 		});
 	</script>
 @endsection

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
 use App\Models\User;
+use App\Models\Employee;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class EmployeesConfigurationController extends Controller
 {
@@ -35,7 +39,16 @@ class EmployeesConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee               = new   App\Models\Employee();
+        $employee->clabe        = $request->clabe;
+        $employee->alias        = $request->alias;
+        $employee->userId       = $request->user;
+        $employee->area         = $request->area;
+        $employee->department   = $request->department;
+        $employee->password     = $request->password;
+        $employee->save();
+        Alert::success('', 'Employee registered successfully with the clabe number: '.$employee->clabe.'!');
+        return redirect()->route('employees.search');
     }
 
     /**
@@ -57,7 +70,8 @@ class EmployeesConfigurationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $requestEmployee    =   App\Models\Employee::find($id);
+        return view('configuration/employees/create',['requests'=>$requestEmployee]);
     }
 
     /**
@@ -83,9 +97,60 @@ class EmployeesConfigurationController extends Controller
         //
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        return view('configuration/employees/search');
+        // return $request;
+        $clabe          = $request->clabe;
+        $alias          = $request->alias;
+        $user           = $request->user;
+        $area           = $request->area;
+        $name           = $request->name;
+        $department     = $request->department;
+        $requestName    = App\Models\Employee::where('name','like','%'.$name.'%');
+
+        $requests = App\Models\Employee::where(function($query) use ($clabe, $alias, $user, $area, $name, $department)
+        {
+            if ($clabe!="")
+            {
+                $query->where('clabe','like','%'.$clabe.'%');
+            }
+            if ($alias!="")
+            {
+                $query->where('alias','like','%'.$alias.'%');
+            }
+            if ($user!="")
+            {
+                $query->where('userId','like','%'.$user.'%');
+            }
+            if ($area!="")
+            {
+                $query->where('area','like','%'.$area.'%');
+            }
+            if ($name!="")
+            {
+                // $query->where('name','like','%'.$name.'%');
+                $query->whereHas('requestUser', function($queryU) use($name)
+                {
+                    $queryU->where(DB::raw("CONCAT_WS(' ',users.name,users.last_name,users.second_last_name)"),'LIKE','%'.preg_replace("/\s+/", "%", $name).'%');
+                });
+            }
+            if ($department!="")
+            {
+                $query->where('department','like','%'.$department.'%');
+            }
+        })
+        ->orderBy('id','DESC')
+        ->paginate(10);
+        return view('configuration/employees/search',
+        [
+            'requests'      => $requests,
+            'clabe'         => $clabe,
+            'alias'         => $alias,
+            'user'          => $user,
+            'area'          => $area,
+            'name'          => $name,
+            'department'    => $department
+        ]);
     }
 
     public function getUser(Request $request)
