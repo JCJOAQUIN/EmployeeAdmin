@@ -4,7 +4,7 @@
 @endphp
 
 @section('content')
-    <div class="mx-4" id="formRegisterUser">
+    <div class="mx-4" id="formRegisterEmployee">
         <form>
             @csrf
             <div class="flex mt-4 p-2">
@@ -16,7 +16,7 @@
             </div>
 			<div class="mt-4 flex justify-center space-x-8">
 				<a href="{{route('employees.create')}}">
-					<button class="createUser w-32 p-2 bg-primary hover:bg-primarySoft rounded-full text-lightSoft hover:text-light font-semibold transition duration-300 ease-in-out" type="button">Create</button>
+					<button class="createEmployee w-32 p-2 bg-primary hover:bg-primarySoft rounded-full text-lightSoft hover:text-light font-semibold transition duration-300 ease-in-out" type="button">Create</button>
 				</a>
 				<a href="{{route('employees.search')}}">
 					<button class="w-32 p-2 bg-third hover:bg-secondarySoft rounded-full text-lightSoft hover:text-light font-semibold transition duration-300 ease-in-out" type="button">Search</button>
@@ -28,11 +28,6 @@
             <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-8 mt-8">
                 @php
                     $userSearch =   isset($user) ? $user : "";
-                    // $nameSearch =   isset($name) ? $name : "";
-                    // $genderSearch =   isset($gender) ? $gender : "";
-                    // $stateSearch =   isset($state) ? $state : "";
-                    // $nssSearch =   isset($nss) ? $nss : "";
-                    // $typeSearch =   isset($type) ? $type : "";
                 @endphp
                 @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Clabe:", "attributeInput" => "name=\"clabe\" placeholder=\"Write the Clabe\" value=\"".(isset($clabe) ? $clabe : '')."\""]) @endcomponent
                 @component('components.inputs.inputCombo', ["classCombo" => "col-span-1", "label" => "Alias:", "attributeInput" => "name=\"alias\" placeholder=\"Write the Alias\" value=\"".(isset($alias) ? $alias : '')."\""]) @endcomponent
@@ -70,7 +65,7 @@
 				@endphp
 				@component('components.inputs.select', ["label" => "Area:", "options" => $options, "attributeSelect" => "name=\"area\" multiple=\"multiple\"", "classSelect" => "js-area"]) @endcomponent
                 @php
-                    $options    =   collect();
+                    $options         =   collect();
 					$departmentsData =   App\Models\Department::get();
                     foreach ($departmentsData as $departmentData)
                     {
@@ -102,10 +97,10 @@
                 </div>
                 @foreach ($requests as $request)
                     @php
-                        $areaData       =   App\Models\Area::find($request->area);
-                        $departmentData =   App\Models\Department::find($request->department);
+                        $areaData       = App\Models\Area::find($request->area);
+                        $departmentData = App\Models\Department::find($request->department);
                     @endphp
-                    <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft userRow">
+                    <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft employeeRow">
                         <div class="col-span-1 grid place-items-center"> {{isset($request->id) ? $request->id : "---"}} </div>
                         <div class="col-span-1 grid place-items-center"> {{isset($request->clabe) ? $request->clabe : "---"}} </div>
                         <div class="col-span-1 grid place-items-center"> {{isset($request->alias) ? $request->alias : '---'}} </div>
@@ -165,18 +160,17 @@
                                 @component('components.labels.label', ["label" => "Status:", "classLabel" => "font-bold"]) @endcomponent
                                 @component('components.labels.label', ["label" => isset($request->nss) ? $request->nss : "---"]) @endcomponent
                             </div>
-                            <div class="w-full text-center border-t-2 border-gray-500 mb-4 pt-4 space-x-4 userRow">
-                                <a href="{{route('users.view',$request->id)}}"><button type="button" title="View User information"><i class="text-lg fa-solid fa-address-card text-third hover:text-thirdSoft"></i></button></a>
+                            <div class="w-full text-center border-t-2 border-gray-500 mb-4 pt-4 space-x-4 employeeRow">
+                                <a href="{{route('employees.view',$request->id)}}"><button type="button" title="View Employee information"><i class="text-lg fa-solid fa-address-card text-third hover:text-thirdSoft"></i></button></a>
                                 @if ($request->deleted_at =="")
-                                    <a href="{{route('users.edit',$request->id)}}"><button type="button" title="Edit User"><i class="text-lg fa-solid fa-user-pen text-primary hover:text-primarySoft"></i></button></a>
+                                    <a href="{{-- {{route('employee.edit',$request->id)}} --}}"><button type="button" title="Edit Employee"><i class="text-lg fa-solid fa-user-pen text-primary hover:text-primarySoft"></i></button></a>
                                 @endif
-                               <a href="{{route('users.suspend',$request->id)}}">
-                                    <button class="disableUserSM {{ $request->deleted_at !="" ? 'hidden' : "" }}"  title="Suspend User" type="button"><i class="text-lg fa-solid fa-user-slash text-dangerDark hover:text-dangerSoft"></i></button>
+                               <a href="{{route('employees.suspend',$request->id)}}">
+                                    <button class="disableEmployeeSM {{ $request->deleted_at !="" ? 'hidden' : "" }}"  title="Suspend Employee" type="button"><i class="text-lg fa-solid fa-user-slash text-dangerDark hover:text-dangerSoft"></i></button>
                                 </a>
-                               <a href="{{route('users.active',$request->id)}}">
-                                    <button class="enableUserSM {{ $request->deleted_at =="" ? 'hidden' : "" }}" title="Active User" type="button"><i class="text-lg fa-solid fa-user-check text-secondaryDark hover:text-secondarySoft"></i></button>
+                               <a href="{{route('employees.active',$request->id)}}">
+                                    <button class="enableEmployeeSM {{ $request->deleted_at =="" ? 'hidden' : "" }}" title="Active Employee" type="button"><i class="text-lg fa-solid fa-user-check text-secondaryDark hover:text-secondarySoft"></i></button>
                                 </a>
-
                             </div>
                         </div>
                     @endforeach

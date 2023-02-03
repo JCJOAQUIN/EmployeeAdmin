@@ -26,7 +26,11 @@
 				</a>
 			</div>
 			<div class="text-2xl font-semibold pb-1 pl-2 mt-8 border-b-4 border-primary text-teal-600">
-				<i class="fa-solid fa-user-plus"></i> User Register
+                @if (isset($requests))
+				    <i class="fa-solid fa-user-pen"></i> User Edition
+                @else
+				    <i class="fa-solid fa-user-plus"></i> User Register
+                @endif
 			</div>
 			<div class="text-center md:mt-8 mt-6 p-2 bg-primary items-center  rounded-full flex lg:inline-flex w-full">
 				<span class="flex rounded-full bg-lightSoft text-third uppercase px-4 lg:py-1 py-2 text-xs font-bold mr-3">Note</span>

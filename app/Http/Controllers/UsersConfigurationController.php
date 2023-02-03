@@ -189,7 +189,6 @@ class UsersConfigurationController extends Controller
         $usersUpdate->save();
         Alert::success('User updated successfully!');
         return redirect()->route('users.search');
-        // return redirect()->route('users.search')->with('alert',$alert);
     }
 
     public function active($id)

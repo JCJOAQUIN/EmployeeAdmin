@@ -51,6 +51,11 @@ class EmployeesConfigurationController extends Controller
         return redirect()->route('employees.search');
     }
 
+    function view(Request $request, $id)
+    {
+        $requestUser    =   App\Models\Employee::find($id);
+        return view('configuration/employees/employeeInformation',['requests'=>$requestUser]);
+    }
     /**
      * Display the specified resource.
      *
@@ -83,7 +88,31 @@ class EmployeesConfigurationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee               = App\Models\Employee::find($id);
+        $employee->clabe        = $request->clabe;
+        $employee->alias        = $request->alias;
+        $employee->userId       = $request->user;
+        $employee->area         = $request->area;
+        $employee->department   = $request->department;
+        $employee->password     = $request->password;
+        $employee->save();
+        Alert::success('', 'Employee updated successfully');
+        return redirect()->route('employees.search');
+    }
+
+    public function active($id)
+    {
+        $employee = App\Models\Employee::onlyTrashed()->find($id);
+        $employee->restore();
+        Alert::success('','Employee restored successfully!');
+        return redirect()->route('employees.search');
+    }
+    public function suspend($id)
+    {
+        $employee = App\Models\Employee::find($id);
+        $employee->delete();
+        Alert::success('','Employee suspended successfully!');
+        return redirect()->route('employees.search');
     }
 
     /**
@@ -139,6 +168,7 @@ class EmployeesConfigurationController extends Controller
                 $query->where('department','like','%'.$department.'%');
             }
         })
+        ->withTrashed()
         ->orderBy('id','DESC')
         ->paginate(10);
         return view('configuration/employees/search',
