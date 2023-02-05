@@ -26,7 +26,7 @@
 						</a>
 					</div>
 					<div class="col-span-1">
-						<a @if ($navBarTitle != "Asistances") href="{{route('administration.asistance')}}" @endif>
+						<a @if ($navBarTitle != "Asistances") href="{{route('assistance.index')}}" @endif>
 							<button class="@if($navBarTitle == "Asistances") bg-darkSoft font-bold @endif font-semibold w-full h-14 @if($navBarTitle != "Asistances") hover:bg-third hover:bg-opacity-40 hover:text-lightSoft transition ease-in duration-200 @endif" type="button"><i class="text-xl fa-solid fa-circle-check mr-2"></i> Assistance</button>
 						</a>
 					</div>
@@ -67,7 +67,7 @@
 			</div>
             <div class="w-full text-light text-center bg-darkSoft mt-10 fixed right-0 z-10 hidden pt-2 divide-y-2 divide-light divide-opacity-10" id="menu">
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Home") href="{{route('administration.index')}}" @endif><button class="w-full font-semibold">Home</button></a>
-                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Asistances") href="{{route('administration.asistance')}}" @endif"><button class="w-full font-semibold">Assistance</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Asistances") href="{{route('assistance.index')}}" @endif"><button class="w-full font-semibold">Assistance</button></a>
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Schedules") href="{{route('administration.schedules')}}" @endif><button class="w-full font-semibold">Schedules</button></a>
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Employees") href="{{route('employees.index')}}" @endif><button class="w-full font-semibold">Employees</button></a>
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Users") href="{{route('users.index')}}" @endif><button class="w-full font-semibold">Users</button></a>

@@ -7,6 +7,7 @@
     <div class="mx-4" id="formRegisterEmployee">
         <form>
             @csrf
+            {{$requests}}
             <div class="flex mt-4 p-2">
                 <a href="{{route('employees.index')}}">
                     <button type="button" class="py-2 px-4 rounded-full text-lg text-light font-semibold bg-darkSoft hover:text-lightSoft hover:bg-thirdSoft transition duration-300 ease-in-out">
@@ -95,6 +96,7 @@
                     <div class="col-span-1">Status</div>
                     <div class="col-span-1">Actions</div>
                 </div>
+
                 @foreach ($requests as $request)
                     @php
                         $areaData       = App\Models\Area::find($request->area);

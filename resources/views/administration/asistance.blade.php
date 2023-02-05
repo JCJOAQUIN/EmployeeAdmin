@@ -3,151 +3,171 @@
 	$navBarTitle	=	"Asistances";
 @endphp
 @section('content')
-	<div class="text-2xl font-semibold pb-1 mt-12 border-b-4 border-primary">
-		General Asistance List
-	</div>
-	<div class="md:flex justify-end block mt-12">
-        <div class="grid md:grid-cols-4 grid-cols-1">
-            <div class="col-span-1 text-center text-xl text-third font-bold mb-4">
+    <div class="text-2xl font-semibold pb-1 pl-2 mt-8 border-b-4 border-primary text-teal-600">
+        <i class="fa-solid fa-table-list"></i> General Asistance List
+    </div>
+    <form>
+        @csrf
+        <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-8 mt-8">
+            <div class="md:col-span-3 sm:col-span-2 col-span-1 text-xl text-third font-bold mb-4">
                 Filters <i class="fa-solid fa-filter"></i>
             </div>
-            <div class="col-span-1 md:ml-4 mb-4">
-                <label class="font-bold text-darkSoft">Employee:</label>
-                <select class="text-third font-semibold w-full p-2 border-2 border-primarySoft rounded-md bg-lightSoft" name="employee" id="employee">
-                    @php
-                        $employeeData	=	["JOSE CARLOS JOAQUIN VAZQUEZ","JOSE CARLOS JOAQUIN VAZQUEZ","JOSE CARLOS JOAQUIN VAZQUEZ","JOSE CARLOS JOAQUIN VAZQUEZ","JOSE CARLOS JOAQUIN VAZQUEZ"];
-                    @endphp
-                    <option value="">Select an Employee</option>
-                    @foreach ($employeeData as $employee)
-                        <option value="1">{{$employee}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-span-1 md:ml-4 mb-4">
-                <label class="font-bold text-darkSoft">Timeliness:</label>
-                <select class="text-third font-semibold w-full p-2 border-2 border-primarySoft rounded-md bg-lightSoft" name="timeliness" id="timeliness">
-                    @php
-                        $timelinessData	=	["Punctual","Late","Absence","Leave","Break"];
-                    @endphp
-                    <option value="">Select a Timeliness</option>
-                    @foreach ($timelinessData as $timeliness)
-                        <option value="1">{{$timeliness}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-span-1 md:ml-4 mb-4">
-                <label class="font-bold text-darkSoft">Assistance type:</label>
-                <select class="text-third font-semibold w-full p-2 border-2 border-primarySoft rounded-md bg-lightSoft" name="asistance" id="asistance">
-                    @php
-                        $asistanceData	=	["Entry","Exit"];
-                    @endphp
-                    <option value="">Select an Assistance type</option>
-                    @foreach ($asistanceData as $asistance)
-                        <option value="1">{{$asistance}}</option>
-                    @endforeach
-                </select>
-            </div>
+            @php
+                $options = collect();
+                $userData   =   App\Models\User::get();
+                foreach ($userData as $users)
+                {
+                    if (isset($userSearch) && $userSearch !="" && $userSearch == $users->id)
+                    {
+                        $options    =   $options->concat([["value" => $users->id, "content" => $users->name, "selected" => "selected"]]);
+                    }
+                    else
+                    {
+                        $options    =   $options->concat([["value"  =>  $users->id, "content" => $users->name]]);
+                    }
+                }
+            @endphp
+            @component('components.inputs.select', ["label" => "Employee: ", "options" => $options, "attributeSelect" => "name=\"user\" multiple=\"multiple\"", "classSelect" => "js-user"]) @endcomponent
+            @php
+                $options = collect();
+                $userData   =   App\Models\Cat_times::get();
+                foreach ($userData as $users)
+                {
+                    if (isset($userSearch) && $userSearch !="" && $userSearch == $users->id)
+                    {
+                        $options    =   $options->concat([["value" => $users->id, "content" => $users->name, "selected" => "selected"]]);
+                    }
+                    else
+                    {
+                        $options    =   $options->concat([["value"  =>  $users->id, "content" => $users->name]]);
+                    }
+                }
+            @endphp
+            @component('components.inputs.select', ["label" => "Timeliness: ", "options" => $options, "attributeSelect" => "name=\"timeliness\" multiple=\"multiple\"", "classSelect" => "js-timeliness"]) @endcomponent
+
+            @php
+                $options = collect();
+                $assistanceData   =   ["1"=>"In","2"=>"Out"];
+                foreach ($assistanceData as $k=>$assistance)
+                {
+                    if (isset($assistanceSearch) && $assistanceSearch !="" && $assistanceSearch == $k)
+                    {
+                        $options    =   $options->concat([["value"  =>  $k, "content" => $assistance, "selected" => "selected"]]);
+                    }
+                    else
+                    {
+                        $options    =   $options->concat([["value"  =>  $k, "content" => $assistance]]);
+                    }
+                }
+            @endphp
+            @component('components.inputs.select', ["label" => "Assistance type: ", "options" => $options, "attributeSelect" => "name=\"assistanceType\" multiple=\"multiple\"", "classSelect" => "js-assistanceType"]) @endcomponent
+        </div>
+    </form>
+    <div class="text-center">
+        <button class="search mt-8 w-24 h-10 bg-teal-500 hover:bg-teal-600 hover:text-light rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-search"></i> Search</button>
+    </div>
+
+	<div class="bg-thirdSoft lg:text-sm text-xs md:mt-8 mt-6 rounded-md bg-opacity-10 font-semibold md:p-8 p-2 md:block hidden">
+
+        {{-- ? table medium size --}}
+
+        <div class="grid grid-cols-12 text-center p-2 bg-teal-800 text-lightSoft rounded-md mb-2">
+            <div class="col-span-1">ID</div>
+            <div class="md:col-span-4">Name</div>
+            <div class="col-span-3">Check In</div>
+            <div class="col-span-3">Check Out</div>
+            <div class="col-span-1">Timeliness</div>
+        </div>
+        @if (isset($requests))
+            @foreach ($requests as $request)
+                <div class="grid grid-cols-12 text-center p-2 md:border-b-2 border-solid border-teal-800 text-darkSoft employeeRow">
+                    <div class="col-span-1  grid place-items-center">{{$request->id}}</div>
+                    <div class="col-span-4  grid place-items-center">{{$request->user != null ? $request->user->fullName() : "---"}}</div>
+                    <div class="col-span-3  grid place-items-center">{{isset($request->check_in) ? $request->check_in : "---"}}</div>
+                    <div class="col-span-3  grid place-items-center">{{isset($request->check_out) ? $request->check_out : "---"}}</div>
+                    <div class="col-span-1  grid place-items-center">
+                        <div class="flex w-full justify-between">
+                            @php
+                                $tileninessColor =
+                                [
+                                    '1'=>'text-secondary',
+                                    '2'=>'text-danger',
+                                    '3'=>'text-dangerSoft',
+                                    '4'=>'text-thirdSoft',
+                                    '5'=>'text-darkSoft',
+                                ];
+                                foreach ($tileninessColor as $key => $color)
+                                {
+                                    if ($request->timeliness_id == $key)
+                                    {
+                                        $colorIcon = $color;
+                                    }
+                                }
+                            @endphp
+                            <span>{{$request->timeliness->name}}</span> <i class="fa-solid fa-user-clock {{$colorIcon}}"></i>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+	</div>
+
+    {{-- ? table movile size --}}
+    <div class="bg-thirdSoft md:mt-8 mt-6 rounded-md bg-opacity-10 text-sm md:p-8 p-2 md:hidden block">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-3">
+            @if (isset($requests))
+                @foreach ($requests as $request)
+                    <div class="bg-white p-4 rounded-md">
+                        <div class="w-full text-center border-b-2 border-gray-500 mb-4 pb-2">
+                            @component('components.labels.label', ["label" => $request->user != null ? $request->user->fullName() : "---", "classLabel" => "font-bold"]) @endcomponent
+                        </div>
+                        <div class="grid grid-cols-2">
+                            @component('components.labels.label', ["label" => "ID :", "classLabel" => "font-bold"]) @endcomponent
+                            @component('components.labels.label', ["label" => $request->id]) @endcomponent
+                        </div>
+                        <div class="grid grid-cols-2">
+                            @component('components.labels.label', ["label" => "Timeliness:", "classLabel" => "font-bold"]) @endcomponent
+                            @component('components.labels.label')
+                            <div class="flex w-full justify-between">
+                                @php
+                                    $tileninessColor =
+                                    [
+                                        '1'=>'text-secondary',
+                                        '2'=>'text-danger',
+                                        '3'=>'text-dangerSoft',
+                                        '4'=>'text-thirdSoft',
+                                        '5'=>'text-darkSoft',
+                                    ];
+                                    foreach ($tileninessColor as $key => $color)
+                                    {
+                                        if ($request->timeliness_id == $key)
+                                        {
+                                            $colorIcon = $color;
+                                        }
+                                    }
+                                @endphp
+                                <span>{{$request->timeliness->name}}</span> <i class="fa-solid fa-user-clock {{$colorIcon}}"></i>
+                            </div>
+                            @endcomponent
+                        </div>
+                        <div class="grid grid-cols-2">
+                            @component('components.labels.label', ["label" => "Check In:", "classLabel" => "font-bold"]) @endcomponent
+                            @component('components.labels.label', ["label" => isset($request->check_in) ? $request->check_in : "---"]) @endcomponent
+                        </div>
+                        <div class="grid grid-cols-2">
+                            @component('components.labels.label', ["label" => "Check Out:", "classLabel" => "font-bold"]) @endcomponent
+                            @component('components.labels.label', ["label" => $request->check_out != "" ? $request->check_out : "---"]) @endcomponent
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
-    <div class="flex justify-center mt-8"><button class="w-32 p-2 bg-secondary hover:bg-secondarySoft rounded-md text-lightSoft hover:text-light font-semibold"><i class="fa-solid fa-magnifying-glass"></i> SEARCH</button></div>
-	<div class="bg-thirdSoft md:mt-8 mt-6 rounded-md bg-opacity-10 font-semibold md:px-6 px-2 py-4">
-		<div class="md:border-none rounded-md border-2 border-solid border-primary overflow-hidden pt-2 mb-4 md:shadow-none shadow-md">
-			<div class="grid md:grid-cols-12 grid-cols-6 text-third text-center py-2 md:border-b-2 border-solid border-primary border-opacity-60">
-				<div class="col-span-1 px-2 font-bold">1</div>
-				<div class="col-span-1">icon</div>
-				<div class="md:col-span-3 col-span-4">JOSE CARLOS JOAQUIN VAZQUEZ</div>
-				<div class="md:col-span-2 md:block hidden">I/O entry</div>
-				<div class="md:col-span-2 md:block hidden">Puntual</div>
-				<div class="md:col-span-2 md:block hidden">01/01/2022 00:00</div>
-				<div class="md:col-span-1 md:block hidden"><i class="text-secondary fa-solid fa-user-clock"></i></div>
-			</div>
-			<div class="md:hidden p-4 bg-lightSoft">
-				<div class="grid sm:grid-cols-4 grid-cols-2 text-center text-third md:hidden">
-					<div class="col-span-1 py-1">I/O entry</div>
-					<div class="col-span-1 py-1">Puntual</div>
-					<div class="col-span-1 py-1">01/01/2022 00:00</div>
-					<div class="col-span-1 py-1"><i class="text-secondary fa-solid fa-user-clock"></i></div>
-				</div>
-			</div>
-		</div>
-		<div class="md:border-none rounded-md border-2 border-solid border-primary overflow-hidden pt-2 mb-4 md:shadow-none shadow-md">
-			<div class="grid md:grid-cols-12 grid-cols-6 text-third text-center py-2 md:border-b-2 border-solid border-primary border-opacity-60">
-				<div class="col-span-1 px-2 font-bold">1</div>
-				<div class="col-span-1">icon</div>
-				<div class="md:col-span-3 col-span-4">JOSE CARLOS JOAQUIN VAZQUEZ</div>
-				<div class="md:col-span-2 md:block hidden">I/O entry</div>
-				<div class="md:col-span-2 md:block hidden">Retardo</div>
-				<div class="md:col-span-2 md:block hidden">01/01/2022 00:00</div>
-				<div class="md:col-span-1 md:block hidden"><i class="text-danger fa-solid fa-user-clock"></i></div>
-			</div>
-			<div class="md:hidden p-4 bg-lightSoft">
-				<div class="grid sm:grid-cols-4 grid-cols-2 text-center text-third md:hidden">
-					<div class="col-span-1 py-1">I/O entry</div>
-					<div class="col-span-1 py-1">Retardo</div>
-					<div class="col-span-1 py-1">01/01/2022 00:00</div>
-					<div class="col-span-1 py-1"><i class="text-danger fa-solid fa-user-clock"></i></div>
-				</div>
-			</div>
-		</div>
-		<div class="md:border-none rounded-md border-2 border-solid border-primary overflow-hidden pt-2 mb-4 md:shadow-none shadow-md">
-			<div class="grid md:grid-cols-12 grid-cols-6 text-third text-center py-2 md:border-b-2 border-solid border-primary border-opacity-60">
-				<div class="col-span-1 px-2 font-bold">1</div>
-				<div class="col-span-1">icon</div>
-				<div class="md:col-span-3 col-span-4">JOSE CARLOS JOAQUIN VAZQUEZ</div>
-				<div class="md:col-span-2 md:block hidden">I/O entry</div>
-				<div class="md:col-span-2 md:block hidden">Falta</div>
-				<div class="md:col-span-2 md:block hidden">01/01/2022 00:00</div>
-				<div class="md:col-span-1 md:block hidden"><i class="text-dangerSoft fa-solid fa-user-clock"></i></div>
-			</div>
-			<div class="md:hidden p-4 bg-lightSoft">
-				<div class="grid sm:grid-cols-4 grid-cols-2 text-center text-third md:hidden">
-					<div class="col-span-1 py-1">I/O entry</div>
-					<div class="col-span-1 py-1">Falta</div>
-					<div class="col-span-1 py-1">01/01/2022 00:00</div>
-					<div class="col-span-1 py-1"><i class="text-dangerSoft fa-solid fa-user-clock"></i></div>
-				</div>
-			</div>
-		</div>
-		<div class="md:border-none rounded-md border-2 border-solid border-primary overflow-hidden pt-2 mb-4 md:shadow-none shadow-md">
-			<div class="grid md:grid-cols-12 grid-cols-6 text-third text-center py-2 md:border-b-2 border-solid border-primary border-opacity-60">
-				<div class="col-span-1 px-2 font-bold">1</div>
-				<div class="col-span-1">icon</div>
-				<div class="md:col-span-3 col-span-4">JOSE CARLOS JOAQUIN VAZQUEZ</div>
-				<div class="md:col-span-2 md:block hidden">I/O entry</div>
-				<div class="md:col-span-2 md:block hidden">Descanso</div>
-				<div class="md:col-span-2 md:block hidden">01/01/2022 00:00</div>
-				<div class="md:col-span-1 md:block hidden"><i class=" text-darkSoft fa-solid fa-user-clock"></i></div>
-			</div>
-			<div class="md:hidden p-4 bg-lightSoft">
-				<div class="grid sm:grid-cols-4 grid-cols-2 text-center text-third md:hidden">
-					<div class="col-span-1 py-1">I/O entry</div>
-					<div class="col-span-1 py-1">Descanso</div>
-					<div class="col-span-1 py-1">01/01/2022 00:00</div>
-					<div class="col-span-1 py-1"><i class=" text-darkSoft fa-solid fa-user-clock"></i></div>
-				</div>
-			</div>
-		</div>
-		<div class="md:border-none rounded-md border-2 border-solid border-primary overflow-hidden pt-2 mb-4 md:shadow-none shadow-md">
-			<div class="grid md:grid-cols-12 grid-cols-6 text-third text-center py-2 md:border-b-2 border-solid border-primary border-opacity-60">
-				<div class="col-span-1 px-2 font-bold">1</div>
-				<div class="col-span-1">icon</div>
-				<div class="md:col-span-3 col-span-4">JOSE CARLOS JOAQUIN VAZQUEZ</div>
-				<div class="md:col-span-2 md:block hidden">I/O entry</div>
-				<div class="md:col-span-2 md:block hidden">Permiso</div>
-				<div class="md:col-span-2 md:block hidden">01/01/2022 00:00</div>
-				<div class="md:col-span-1 md:block hidden"><i class="text-thirdSoft fa-solid fa-user-clock"></i></div>
-			</div>
-			<div class="md:hidden p-4 bg-lightSoft">
-				<div class="grid sm:grid-cols-4 grid-cols-2 text-center text-third md:hidden">
-					<div class="col-span-1 py-1">I/O entry</div>
-					<div class="col-span-1 py-1">Permiso</div>
-					<div class="col-span-1 py-1">01/01/2022 00:00</div>
-					<div class="col-span-1 py-1"><i class="text-thirdSoft fa-solid fa-user-clock"></i></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="text-center mt-8"> <| pagination |> </div>
+
+        {{-- pagination --}}
+    <div class="text-center mt-4">
+        {{$requests->links()}}
+    </div>
 @endsection
 
 @section('scripts')
@@ -160,6 +180,24 @@
         });
         $(document).ready(function()
         {
+            $('.js-user').select2({
+				placeholder         :   "Select an User",
+				language            :   "en",
+				maximumSelectionLength  : 1,
+				width               : "100%"
+			})
+            $('.js-timeliness').select2({
+				placeholder         :   "Select a Timeliness",
+				language            :   "en",
+				maximumSelectionLength  : 1,
+				width               : "100%"
+			})
+            $('.js-assistanceType').select2({
+				placeholder         :   "Select an Assistance Type",
+				language            :   "en",
+				maximumSelectionLength  : 1,
+				width               : "100%"
+			})
         });
     </script>
 @endsection
