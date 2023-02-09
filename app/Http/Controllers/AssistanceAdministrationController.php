@@ -13,14 +13,9 @@ class AssistanceAdministrationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $asistance = App\Models\Assistance::orderBy('id','DESC')
-        ->paginate(5);;
-        return view('administration/asistance',
-        [
-            'requests' => $asistance,
-        ]);
+        return redirect()->route('assistance.search',["request"=>$request]);
     }
 
     /**
@@ -55,6 +50,40 @@ class AssistanceAdministrationController extends Controller
         //
     }
 
+    public function search(Request $request)
+    {
+        $name           =   $request->user;
+        $timeliness     =   $request->timeliness;
+        $check          =   $request->assistanceType;
+        $requests = App\Models\Assistance::where(function($query) use ($name,$timeliness,$check)
+        {
+            if($name!="")
+            {
+                $query->where('user_id','like','%'.$name.'%');
+            }
+            if($timeliness!="")
+            {
+                $query->where('timeliness_id','like','%'.$timeliness.'%');
+            }
+            if($check==1)
+            {
+                $query->where('check_in','!=','');
+            }
+            if($check==2)
+            {
+                $query->where('check_out','!=','');
+            }
+        })
+        ->orderBy('id','DESC')
+        ->paginate(10);
+        return view('administration/asistance',
+        [
+            'requests'      => $requests,
+            'name'          => $name,
+            'timeliness'    => $timeliness,
+            'check'         => $check,
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

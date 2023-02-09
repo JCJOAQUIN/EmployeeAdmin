@@ -128,7 +128,6 @@ class EmployeesConfigurationController extends Controller
 
     public function search(Request $request)
     {
-        // return $request;
         $clabe          = $request->clabe;
         $alias          = $request->alias;
         $user           = $request->user;
@@ -157,7 +156,6 @@ class EmployeesConfigurationController extends Controller
             }
             if ($name!="")
             {
-                // $query->where('name','like','%'.$name.'%');
                 $query->whereHas('requestUser', function($queryU) use($name)
                 {
                     $queryU->where(DB::raw("CONCAT_WS(' ',users.name,users.last_name,users.second_last_name)"),'LIKE','%'.preg_replace("/\s+/", "%", $name).'%');

@@ -13,11 +13,11 @@
                 Filters <i class="fa-solid fa-filter"></i>
             </div>
             @php
-                $options = collect();
+                $options    =   collect();
                 $userData   =   App\Models\User::get();
                 foreach ($userData as $users)
                 {
-                    if (isset($userSearch) && $userSearch !="" && $userSearch == $users->id)
+                    if (isset($name) && $name !="" && $name == $users->id)
                     {
                         $options    =   $options->concat([["value" => $users->id, "content" => $users->name, "selected" => "selected"]]);
                     }
@@ -30,16 +30,16 @@
             @component('components.inputs.select', ["label" => "Employee: ", "options" => $options, "attributeSelect" => "name=\"user\" multiple=\"multiple\"", "classSelect" => "js-user"]) @endcomponent
             @php
                 $options = collect();
-                $userData   =   App\Models\Cat_times::get();
-                foreach ($userData as $users)
+                $timelinessData   =   App\Models\Cat_times::get();
+                foreach ($timelinessData as $timelinesD)
                 {
-                    if (isset($userSearch) && $userSearch !="" && $userSearch == $users->id)
+                    if (isset($timeliness) && $timeliness !="" && $timeliness == $timelinesD->id)
                     {
-                        $options    =   $options->concat([["value" => $users->id, "content" => $users->name, "selected" => "selected"]]);
+                        $options    =   $options->concat([["value" => $timelinesD->id, "content" => $timelinesD->name, "selected" => "selected"]]);
                     }
                     else
                     {
-                        $options    =   $options->concat([["value"  =>  $users->id, "content" => $users->name]]);
+                        $options    =   $options->concat([["value"  =>  $timelinesD->id, "content" => $timelinesD->name]]);
                     }
                 }
             @endphp
@@ -50,7 +50,7 @@
                 $assistanceData   =   ["1"=>"In","2"=>"Out"];
                 foreach ($assistanceData as $k=>$assistance)
                 {
-                    if (isset($assistanceSearch) && $assistanceSearch !="" && $assistanceSearch == $k)
+                    if (isset($check) && $check !="" && $check == $k)
                     {
                         $options    =   $options->concat([["value"  =>  $k, "content" => $assistance, "selected" => "selected"]]);
                     }
@@ -62,10 +62,10 @@
             @endphp
             @component('components.inputs.select', ["label" => "Assistance type: ", "options" => $options, "attributeSelect" => "name=\"assistanceType\" multiple=\"multiple\"", "classSelect" => "js-assistanceType"]) @endcomponent
         </div>
+        <div class="text-center">
+            <button class="search mt-8 w-24 h-10 bg-teal-500 hover:bg-teal-600 hover:text-light rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-search"></i> Search</button>
+        </div>
     </form>
-    <div class="text-center">
-        <button class="search mt-8 w-24 h-10 bg-teal-500 hover:bg-teal-600 hover:text-light rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-search"></i> Search</button>
-    </div>
 
 	<div class="bg-thirdSoft lg:text-sm text-xs md:mt-8 mt-6 rounded-md bg-opacity-10 font-semibold md:p-8 p-2 md:block hidden">
 
@@ -73,7 +73,7 @@
 
         <div class="grid grid-cols-12 text-center p-2 bg-teal-800 text-lightSoft rounded-md mb-2">
             <div class="col-span-1">ID</div>
-            <div class="md:col-span-4">Name</div>
+            <div class="col-span-4">Name</div>
             <div class="col-span-3">Check In</div>
             <div class="col-span-3">Check Out</div>
             <div class="col-span-1">Timeliness</div>
@@ -88,7 +88,7 @@
                     <div class="col-span-1  grid place-items-center">
                         <div class="flex w-full justify-between">
                             @php
-                                $tileninessColor =
+                                $timeleninessColor =
                                 [
                                     '1'=>'text-secondary',
                                     '2'=>'text-danger',
@@ -96,7 +96,7 @@
                                     '4'=>'text-thirdSoft',
                                     '5'=>'text-darkSoft',
                                 ];
-                                foreach ($tileninessColor as $key => $color)
+                                foreach ($timeleninessColor as $key => $color)
                                 {
                                     if ($request->timeliness_id == $key)
                                     {
@@ -113,6 +113,7 @@
 	</div>
 
     {{-- ? table movile size --}}
+    
     <div class="bg-thirdSoft md:mt-8 mt-6 rounded-md bg-opacity-10 text-sm md:p-8 p-2 md:hidden block">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-3">
             @if (isset($requests))

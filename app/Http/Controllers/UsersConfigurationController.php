@@ -69,7 +69,6 @@ class UsersConfigurationController extends Controller
         $status     =   $request->status;
         $nss        =   $request->nss;
         $type       =   $request->type;
-        // return $status;
         $statusKey  =   "";
         $requests   =   App\Models\User::where(function($query) use ($user, $name, $gender, $status, $nss, $type)
         {
@@ -116,7 +115,7 @@ class UsersConfigurationController extends Controller
         })
         ->withTrashed()
         ->orderBy('id','DESC')
-        ->paginate(5);
+        ->paginate(10);
         return view('configuration/users/search',
         [
             'requests'  =>  $requests,

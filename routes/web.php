@@ -63,6 +63,7 @@ Route::resource('users','App\Http\Controllers\UsersConfigurationController');
 // Assistance Routes
 Route::prefix('assistance/')->name('assistance.')->group(function()
 {
+    Route::get('search','App\Http\Controllers\AssistanceAdministrationController@search')->name('search');
 });
 Route::resource('assistance','App\Http\Controllers\AssistanceAdministrationController');
 
