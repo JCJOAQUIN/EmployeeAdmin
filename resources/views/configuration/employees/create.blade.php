@@ -118,12 +118,22 @@
 			<div class="col-span-1 mt-6 validatePasswordConfirmation bg-dangerSoft bg-opacity-50 rounded-md hidden p-2 content-center"> <label class="text-third font-bold">Error: </label><label class="ml-6 text-center text-dangerDark font-semibold">Passwords don´t match</label><i class="text-dangerDark fa-solid fa-circle-exclamation h-6 ml-6"></i></div>
 		</div>
 		<div class="w-full flex justify-center my-8 space-x-4">
-			<button class="save w-24 h-10 bg-secondary rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-check"></i> Save</button>
-			<button class="w-24 h-10 bg-danger rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-xmark"></i> Cancel</button>
+			<button class="save w-24 h-10 bg-secondary hover:bg-secondarySoft rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-check"></i> Save</button>
+			<button class="w-24 h-10 bg-danger hover:bg-dangerSoft rounded-md text-lightSoft font-semibold"><i class="fa-solid fa-xmark"></i> Cancel</button>
 		</div>
 	</form>
 @endsection
 @section('scripts')
+    @if (!session('alert'))
+        <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+        <script>
+            swal.fire({
+                imageUrl: '{{ asset(getenv('LOADING_IMG')) }}',
+                showConfirmButton: false,
+                timer: 600,
+            });
+        </script>
+    @endif
 	<script type="text/javascript">
 		$(document).ready(function()
 		{

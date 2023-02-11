@@ -21,7 +21,7 @@
 				</div>
 				<div class="text-light md:col-span-9 md:grid md:grid-cols-5 mr-4 md:text-md xs:text-sm hidden">
 					<div class="col-span-1">
-						<a @if ($navBarTitle != "Home") href="{{route('administration.index')}}" @endif>
+						<a @if ($navBarTitle != "Home") href="{{route('home.index')}}" @endif>
 							<button class="@if($navBarTitle == "Home") bg-darkSoft font-bold @endif font-semibold w-full h-14 @if($navBarTitle != "Home") hover:bg-third hover:bg-opacity-40 hover:text-lightSoft transition ease-in duration-200 @endif" type="button"><i class="text-xl fa-solid fa-home mr-2" title="Home"></i> Home</button>
 						</a>
 					</div>
@@ -31,7 +31,7 @@
 						</a>
 					</div>
 					<div class="col-span-1">
-						<a @if ($navBarTitle != "Schedules") href="{{route('administration.schedules')}}" @endif>
+						<a @if ($navBarTitle != "Schedules") href="{{route('schedules.index')}}" @endif>
 							<button class="@if($navBarTitle == "Schedules") bg-darkSoft font-bold @endif font-semibold w-full h-14 @if($navBarTitle != "Schedules") hover:bg-third hover:bg-opacity-40 hover:text-lightSoft transition ease-in duration-200 @endif" type="button"><i class="text-xl fa-solid fa-calendar-plus mr-2"></i> Schedules</button>
 						</a>
 					</div>
@@ -66,9 +66,9 @@
 				</div>
 			</div>
             <div class="w-full text-light text-center bg-darkSoft mt-10 fixed right-0 z-10 hidden pt-2 divide-y-2 divide-light divide-opacity-10" id="menu">
-                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Home") href="{{route('administration.index')}}" @endif><button class="w-full font-semibold">Home</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Home") href="{{route('home.index')}}" @endif><button class="w-full font-semibold">Home</button></a>
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Asistances") href="{{route('assistance.index')}}" @endif"><button class="w-full font-semibold">Assistance</button></a>
-                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Schedules") href="{{route('administration.schedules')}}" @endif><button class="w-full font-semibold">Schedules</button></a>
+                <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Schedules") href="{{route('schedules.index')}}" @endif><button class="w-full font-semibold">Schedules</button></a>
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Employees") href="{{route('employees.index')}}" @endif><button class="w-full font-semibold">Employees</button></a>
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" @if ($navBarTitle != "Users") href="{{route('users.index')}}" @endif><button class="w-full font-semibold">Users</button></a>
                 <a class="block hover:bg-thirdSoft hover:text-lightSoft py-4" href="{{route('auth.login')}}"><button class="w-full font-semibold">log Out</button></a>

@@ -27,18 +27,6 @@ Route::prefix('Auth/')->name('auth.')->group(function()
     Route::get('login','App\Http\Controllers\AuthLoginController@index')->name('login');
 });
 
-
-    // ! this routes have been deleted at end
-Route::prefix('administration/')->name('administration.')->group(function()
-{
-    // Route::get('asistance','App\Http\Controllers\EmployeeAdministrationController@asistance')->name('asistance'); delete this route at end
-    Route::get('schedules','App\Http\Controllers\EmployeeAdministrationController@schedules')->name('schedules');
-});
-Route::resource('administration','App\Http\Controllers\EmployeeAdministrationController');
-
-
-
-
 // Configuration Employees Routes
 Route::prefix('employees/')->name('employees.')->group(function()
 {
@@ -66,5 +54,19 @@ Route::prefix('assistance/')->name('assistance.')->group(function()
     Route::get('search','App\Http\Controllers\AssistanceAdministrationController@search')->name('search');
 });
 Route::resource('assistance','App\Http\Controllers\AssistanceAdministrationController');
+
+// Home Routes
+Route::prefix('home/')->name('home.')->group(function()
+{
+    Route::get('search','App\Http\Controllers\HomeAdministrationController@search')->name('search');
+});
+Route::resource('home','App\Http\Controllers\HomeAdministrationController');
+
+// Schedules Routes
+Route::prefix('schedules/')->name('schedules.')->group(function()
+{
+    Route::get('assign','App\Http\Controllers\SchedulesAdministrationController@assign')->name('assign');
+});
+Route::resource('schedules','App\Http\Controllers\SchedulesAdministrationController');
 
 
