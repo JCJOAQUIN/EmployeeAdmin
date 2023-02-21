@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
+use App\Models\Schedule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SchedulesAdministrationController extends Controller
 {
@@ -34,7 +37,14 @@ class SchedulesAdministrationController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $schedules              =   new App\Models\Schedule();
+        $schedules->name         =   $request->name;
+        $schedules->start_time   =   $request->startTime;
+        $schedules->end_time     =   $request->endTime;
+        $schedules->save();
+
+        Alert::success('', 'Schedule registered successfully!');
+        return redirect()->route('schedules.create');
     }
 
     /**
